@@ -637,6 +637,1016 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/Category/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/15/Category/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-15T15:52:06+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/KVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/15/KVC/" itemprop="url">KVC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-15T15:48:14+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h1><p>KVC的全称是Key-Value Coding，俗称“键值编码”，可以通过一个key来访问属性</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 常用api</span><br><span class="line">- (void)setValue:(id)value forKeyPath:(NSString *)keyPath;</span><br><span class="line">- (void)setValue:(id)value forKey:(NSString *)key;</span><br><span class="line">- (void)valueForKeyPath:(NSString)keyPath;</span><br><span class="line">- (void)valueForKey:(NSString)key;</span><br></pre></td></tr></table></figure>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="赋值过程"><a href="#赋值过程" class="headerlink" title="赋值过程"></a>赋值过程</h4><ol>
+<li><p>按照<strong><em>setKey</em></strong>、 <strong><em>_setKey</em></strong>的顺序查找set方法</p>
+</li>
+<li><p>如果没有找到set方法，则会判断<strong><em>accessInstanceVariablesDirectly</em></strong>方法的返回值，如果返回值为<strong><em>YES</em></strong>则按照<strong><em>_key</em></strong>、<strong><em>_isKey</em></strong>、<strong><em>key</em></strong>、<strong><em>isKey</em></strong>的顺序查找成员变量</p>
+</li>
+</ol>
+<blockquote>
+<p>无论KVC有没有调用set方法(对象内部有没有set方法)，KVC都会触发KVO(在KVC内部会调用<em>willChangeValueForKey</em>和<em>didChangeValueForKey</em>,在didChangeValueForKey内部会触发监听方法)。</p>
+</blockquote>
+<h4 id="取值过程"><a href="#取值过程" class="headerlink" title="取值过程"></a>取值过程</h4><ol>
+<li>按照<strong><em>getKey</em></strong>、 <strong><em>key</em></strong>、 <strong><em>isKey</em></strong>、 <strong><em>_key</em></strong>的顺序查找get方法</li>
+<li>如果没有找到get方法，则会判断<strong><em>accessInstanceVariablesDirectly</em></strong>方法的返回值，如果返回值为<strong>YES</strong>，则按照<strong><em>_key</em></strong>、<strong><em>_isKey</em></strong>、<strong><em>key</em></strong>、<strong><em>isKey</em></strong>的顺序查找成员变量</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/KVO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/15/KVO/" itemprop="url">KVO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-15T14:31:48+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h3 id="什么是KVO"><a href="#什么是KVO" class="headerlink" title="什么是KVO"></a>什么是KVO</h3><p>KVO的全称是Key-Value Observing,俗称”键值监听”,可以用于监听某个对象属性值得改变</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 监听someObj的someKey</span><br><span class="line">NSKeyValueObservingOptions options = NSkeyValueObservingOptionNew | NSkeyValueObservingOptionOld;</span><br><span class="line">[someObj addObserver:self forKeyPath:@&quot;someKey&quot; options:options context:nil];</span><br><span class="line"></span><br><span class="line">// 当监听对象的属性值发生改变，就会调用</span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h3><p>KVO的本质是使用runtime动态生成一个<code>NSKVONotifying_XXXClass</code>的类，是原来类的子类。</p>
+<p>在<code>NSKVONotifying_XXXClass</code>的set方法中的操作大致为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 注：以下为伪代码</span><br><span class="line"></span><br><span class="line">- setSomeKey:(id)someKey &#123;</span><br><span class="line">	_NSSetIntValueAndNotify(); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Foundation框架中</span><br><span class="line">void _NSSetIntValueAndNotify() &#123;</span><br><span class="line">  [self willChangeValueForKey:@&quot;someKey&quot;];</span><br><span class="line">	[super setSomeKey: someKey];</span><br><span class="line">  [self. didChangeValueForKey:@&quot;someKey&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)didChangeValueForKey:(NSString *)key &#123;</span><br><span class="line">  // 通知监听器</span><br><span class="line">  [oberser observeValueForKeyPath:key ofObject: self, change: nil, context:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><ul>
+<li>如何手动触发监听器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[someObject willChangeValueForKey:@&quot;someKey&quot;];</span><br><span class="line">[someObject didChangeValueForKey:@&quot;someKey&quot;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>直接修改成员变量会触发KVO么？</p>
+<p>不会，只有调用set方法才会调用KVO</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/OC对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/14/OC对象/" itemprop="url">OC对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-14T21:13:48+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="OC对象"><a href="#OC对象" class="headerlink" title="OC对象"></a>OC对象</h1><h3 id="OC对象分类"><a href="#OC对象分类" class="headerlink" title="OC对象分类"></a>OC对象分类</h3><ul>
+<li>instance对象(实例对象)</li>
+<li>class对象(类对象)</li>
+<li>meta对象(元类对象)</li>
+</ul>
+<h3 id="对象的结构"><a href="#对象的结构" class="headerlink" title="对象的结构"></a>对象的结构</h3><ul>
+<li>instance<ul>
+<li>isa指针</li>
+<li>其他成员变量</li>
+</ul>
+</li>
+<li>class对象<ul>
+<li>isa指针</li>
+<li>superclass指针</li>
+<li>类的属性信息 （@property）</li>
+<li>类的对象方法信息 （instance method）</li>
+<li>类的协议信息 (protocol)</li>
+<li>类的成员变量信息(ivar)</li>
+</ul>
+</li>
+<li>meta-class<ul>
+<li>isa指针</li>
+<li>superclass</li>
+<li>类方法信息(class method)</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取类对象"><a href="#获取类对象" class="headerlink" title="获取类对象"></a>获取类对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class objectClass = [NSObject class]; // 获取类对象</span><br><span class="line">Class objectClass = object_getClass(object) // 获取类对象</span><br><span class="line">Class metaClass = object_getClass(objectClass) // object_getClass 传类对象获取元类对象</span><br><span class="line">BOOL result = class_isMetaClass([NSObject class]) //判断是否是元类对象</span><br></pre></td></tr></table></figure>
+<h3 id="isa指针和superclass"><a href="#isa指针和superclass" class="headerlink" title="isa指针和superclass"></a>isa指针和superclass</h3><ul>
+<li>instance的isa指向class</li>
+<li>class的isa指向meta-class</li>
+<li>meta-class的isa指向基类的meta-class</li>
+<li><p>class的superclass指向父类的class</p>
+<blockquote>
+<p>如果没有父类，superclass指针为nil</p>
+</blockquote>
+</li>
+<li><p>meta-class的superclass指向父类的meta-class</p>
+<blockquote>
+<p>基类的meta-class的superclass指向基类的class</p>
+</blockquote>
+</li>
+<li><p>instance调用对象方法的轨迹</p>
+<blockquote>
+<p>isa找到class，方法不存在，就通过superclass找父类</p>
+</blockquote>
+</li>
+<li><p>class调用类方法的轨迹</p>
+<blockquote>
+<p>isa找meta-class，方法不存在，就通过superclass找父类</p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/iOS底层原理笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/14/iOS底层原理笔记/" itemprop="url">iOS底层原理笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-14T17:13:31+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="iOS底层原理笔记"><a href="#iOS底层原理笔记" class="headerlink" title="iOS底层原理笔记"></a>iOS底层原理笔记</h1><h3 id="端口映射"><a href="#端口映射" class="headerlink" title="端口映射"></a>端口映射</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tcprelay.py -t 22:10010 // usbmuxd将本地10010端口tcp协议 通过usb转发到iPhone的22端口</span><br></pre></td></tr></table></figure>
+<h3 id="Cycript-安装和使用"><a href="#Cycript-安装和使用" class="headerlink" title="Cycript 安装和使用"></a>Cycript 安装和使用</h3><p>安装源：<a href="http://apt.saurik.com/cydia" target="_blank" rel="noopener">apt.saurik.com/cydia</a></p>
+<p>iOS11及以上iOS版本中不能直接使用Cycript,如果想继续使用可使用以下方法</p>
+<ol>
+<li><p>ssh登录iPhone</p>
+</li>
+<li><p>执行以下命令(如没有安装wget，在Cydia安装)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget [http://apt.saurik.com/debs/cycript_0.9.594_iphoneos-arm.deb ](https://links.jianshu.com/go?to=http%3A%2F%2Fapt.saurik.com%2Fdebs%2Fcycript_0.9.594_iphoneos-arm.deb)</span><br><span class="line"></span><br><span class="line">wget [http://www.tateu.net/repo/files/net.tateu.cycriptlistenertweak_1.0.0_iphoneos-arm.deb ](https://links.jianshu.com/go?to=http%3A%2F%2Fwww.tateu.net%2Frepo%2Ffiles%2Fnet.tateu.cycriptlistenertweak_1.0.0_iphoneos-arm.deb)</span><br><span class="line"></span><br><span class="line">wget [http://www.tateu.net/repo/files/net.tateu.cyrun_1.0.5_iphoneos-arm.deb](https://links.jianshu.com/go?to=http%3A%2F%2Fwww.tateu.net%2Frepo%2Ffiles%2Fnet.tateu.cyrun_1.0.5_iphoneos-arm.deb)</span><br><span class="line"></span><br><span class="line">dpkg -i cycript_0.9.594_iphoneos-arm.deb</span><br><span class="line"></span><br><span class="line">dpkg -i net.tateu.cycriptlistenertweak_1.0.0_iphoneos-arm.deb net.tateu.cyrun_1.0.5_iphoneos-arm.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过cyrun进入cycript</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cyrun -n SpringBoard -e </span><br><span class="line">// -n表示SpringBoard为进程名字，-e表示使cycript能注入到SpringBoard进程中</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出cycirpt</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.  control 加 D，退出cycript</span><br><span class="line">2. 执行 cyrun -n SpringBoard -d,将cycript从之前的进程中抽离出来，才能将cycript注入另一个进程噢。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Cycript使用"><a href="#Cycript使用" class="headerlink" title="Cycript使用"></a>Cycript使用</h3><p>打印view层级数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[UIApp.keyWindow recursiveDescription]</span><br><span class="line">[UIApp.keyWindow recursiveDescription].toString() //排版更清楚</span><br><span class="line">UIApp.keyWindow recursiveDescription().toString() // 也可这么写</span><br></pre></td></tr></table></figure>
+<p>筛选</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choose(UIViewController)</span><br></pre></td></tr></table></figure>
+<p>查看对象的缩影成员变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*对象</span><br></pre></td></tr></table></figure>
+<p>编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">clang test.c // 编译c语言文件为可执行文件</span><br><span class="line">clang -o test2 test.c // test2 为编译后可执行文件名</span><br><span class="line">clang -c test.c// 只编译成.o文件不链接</span><br></pre></td></tr></table></figure>
+<p>查看文件信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file Test</span><br></pre></td></tr></table></figure>
+<p>查看可执行文件支持架构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -info Test</span><br></pre></td></tr></table></figure>
+<p>拆分二进制文件架构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo Test -thin armv7 -output Test_armv7</span><br></pre></td></tr></table></figure>
+<p>合并二进制文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -create Test_arm64 Test_armv7 -output Test2</span><br></pre></td></tr></table></figure>
+<p>Mach-O基本结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Header</span><br><span class="line">- 文件类型，目标架构等</span><br><span class="line">Load Commands</span><br><span class="line">- 描述文件在虚拟内存中的逻辑结构、布局</span><br><span class="line">Raw segment data </span><br><span class="line">- 在Load commands中定义的Segment的原始数据</span><br></pre></td></tr></table></figure>
+<p>验证可执行文件是否被加壳</p>
+<ul>
+<li><p>使用MachOView 查看Load Commands 中LC——ENCRYPTING_INFO 中 Crypt_ID 是否为0  // 0未加密</p>
+</li>
+<li><p>otool -l Test | grep Crypt  //  cryptid 为0 则未加密</p>
+</li>
+</ul>
+<h3 id="APP砸壳"><a href="#APP砸壳" class="headerlink" title="APP砸壳"></a>APP砸壳</h3><p>APP砸壳使用的工具</p>
+<ul>
+<li><p>Clutch</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Clutch - i // 获取加壳应用列表</span><br><span class="line">Clutch -d + 列表序号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dumpdecrypted</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib app</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>iOS12真的是对逆向不太友好，解决了各种kill 9之类的问题之后，你会发现上面的方法都砸壳失败了。最终使用<code>CrackerXI</code> 解决</p>
+<h2 id="Clutch-解决iOS-12-中kill-9"><a href="#Clutch-解决iOS-12-中kill-9" class="headerlink" title="Clutch 解决iOS 12 中kill 9"></a>Clutch 解决iOS 12 中kill 9</h2><p>iOS12中似乎因为越狱不完美导致自己添加的可执行文件不受信任，报错kill: 9 ，其他可执行文件遇到kill 9 也可按照此方法尝试解决</p>
+<p>可执行下面的代码添加信任</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> safe place to work <span class="keyword">in</span></span></span><br><span class="line">cd /private/var/mobile/Documents</span><br><span class="line"><span class="meta">#</span><span class="bash"> Get the ent from bash and save it</span></span><br><span class="line">ldid -e `which bash` &gt; ent.xml</span><br><span class="line"><span class="meta">#</span><span class="bash"> sign Clutch with the ent. <span class="string">"-Sent.xml"</span> is the correct usage</span></span><br><span class="line">ldid -Sent.xml `which Clutch`</span><br><span class="line"><span class="meta">#</span><span class="bash"> inject into trust cache</span></span><br><span class="line">inject `which Clutch`</span><br></pre></td></tr></table></figure>
+<h2 id="Theos-使用"><a href="#Theos-使用" class="headerlink" title="Theos 使用"></a>Theos 使用</h2><h3 id="clone-theos"><a href="#clone-theos" class="headerlink" title="clone theos"></a>clone theos</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive https://github.com/theos/theos.git $THEOS</span><br></pre></td></tr></table></figure>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// vim ~/.bash_profile</span><br><span class="line">export THEOS=~/theos</span><br><span class="line">export PATH=THEOS/bin:$PATH</span><br></pre></td></tr></table></figure>
+<h3 id="编写tweak代码"><a href="#编写tweak代码" class="headerlink" title="编写tweak代码"></a>编写tweak代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 资源文件推荐路径 /Library/PreferenceLoader/Preferences/  </span><br><span class="line">// &quot;AAABBB&quot; &quot;CCCC&quot; 等价于 &quot;AAABBBCCCC&quot;</span><br><span class="line">// 宏定义中#会替换为”“</span><br><span class="line">#define YSFile(path) @&quot;/Library/PreferenceLoader/Preferences/YSWeChat/&quot; #path</span><br><span class="line"></span><br><span class="line">%hook PlayVideoController</span><br><span class="line"></span><br><span class="line">- (id)disableAdv &#123;</span><br><span class="line">	return true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Always make sure you clean up after yourself; Not doing so could have grave consequences!</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+<h3 id="Logos语法"><a href="#Logos语法" class="headerlink" title="Logos语法"></a>Logos语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%hook %end // hook一个类的开始和结束</span><br><span class="line">%log //打印方法调用详情 -- 可在Xcode中查看日志</span><br><span class="line">HBDebugLog: 跟NSLog类似</span><br><span class="line">%ctor &#123;...&#125; // 在加载动态库时调用</span><br><span class="line">%dtor &#123;...&#125; // 在程序退出时调用</span><br><span class="line">%orig // 调用旧方法</span><br><span class="line">%new // 添加新方法  如果需要直接调用新声明的方法 需要在@interface中声明一下</span><br><span class="line">%c(className) // 等同于 NSClassFromString(@&quot;className&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="logify-pl"><a href="#logify-pl" class="headerlink" title="logify.pl"></a>logify.pl</h3><p>可以将一个头文件快速转换成一家包含打印信息的xm文件</p>
+<blockquote>
+<p>logify.pl xx.h &gt; xx.xm<br>// 打印信息太多，可将%log 换成 NSStringFromSelector(_cmd)</p>
+</blockquote>
+<p>注意点：</p>
+<ul>
+<li><p>删掉__weak</p>
+</li>
+<li><p>删掉inout</p>
+</li>
+<li><p>删掉协议 比如<xxtestdelegate> 或声明协议 @protocol XXXDelegate, XXXXDelegate;</xxtestdelegate></p>
+</li>
+<li><p>删掉-(void).cxx_destruct{…}</p>
+</li>
+<li><p>删除HBLog(@”=0x%x,(unsigned int)r”)</p>
+</li>
+<li><p>替换类名为void, 比如将XXPerson <em>替换为void </em></p>
+<ul>
+<li>或者声明一下类信息@class XXPerson: NSObject;</li>
+</ul>
+</li>
+</ul>
+<h3 id="Makefile-配置环境变量"><a href="#Makefile-配置环境变量" class="headerlink" title="Makefile 配置环境变量"></a>Makefile 配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export THEOS_DEVICE_IP=127.0.0.1</span><br><span class="line">export THEOS_DEVICE_PORT=10010</span><br><span class="line"></span><br><span class="line">tweak_XXX_FILES = $(wildcard src/*/xm) // 编译文件</span><br></pre></td></tr></table></figure>
+<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make // 编译Tweak代码为动态库 *.dylib</span><br><span class="line">make package // 将dylib大包围deb文件  make package debug=0 打包release 版本</span><br><span class="line">make install // 将deb文件传送到手机上，通过Cydia安装</span><br></pre></td></tr></table></figure>
+<p>插件将安装在/Library/MobileSubstrate/DynamicLibraries文件夹中</p>
+<ul>
+<li>*.dylib -&gt; 编译后的Tweak代码</li>
+<li>*.plist -&gt; 存放着需要hooc的APP ID</li>
+</ul>
+<h1 id="iOS-命令行工具开发"><a href="#iOS-命令行工具开发" class="headerlink" title="iOS 命令行工具开发"></a>iOS 命令行工具开发</h1><h3 id="命令行工具的本质"><a href="#命令行工具的本质" class="headerlink" title="命令行工具的本质"></a>命令行工具的本质</h3><ul>
+<li>可执行文件</li>
+<li>和App内部可执行文件差不多</li>
+</ul>
+<h3 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ldid -e TestCL &gt; TestCL.entitlements // 导出权限文件 &gt;覆盖 &gt;&gt; 追加 </span><br><span class="line">ldid -STestCL.entitlements TestCL // 导入权限文件 注意：-S后无空格</span><br></pre></td></tr></table></figure>
+<h3 id="Xcode-调试"><a href="#Xcode-调试" class="headerlink" title="Xcode 调试"></a>Xcode 调试</h3><p>编译器发展历程： GCC-&gt;LLVM</p>
+<p>调试器发展历程： GDB-&gt;LLDB</p>
+<p>Debugserver 一开始在Xcode里，当手机连接Xcode时会安装到iPhone上</p>
+<h2 id="动态调试任意APP"><a href="#动态调试任意APP" class="headerlink" title="动态调试任意APP"></a>动态调试任意APP</h2><h3 id="debugserver权限问题"><a href="#debugserver权限问题" class="headerlink" title="debugserver权限问题"></a>debugserver权限问题</h3><ul>
+<li>默认情况下，/Developer/usr/bin/debugserver缺少一定的权限，只能调试Xcode安装的APP，无法调试其他APP（比如来自APP Store的APP）</li>
+<li>如果希望调试其他APP，需要对debugserver重新签名，签上2个调试相关的权限<ul>
+<li>get-task-allow</li>
+<li>task_for_pid-allow</li>
+</ul>
+</li>
+<li>将重签名的debugserver 放入 /usr/bin 目录</li>
+</ul>
+<p>签名方法：</p>
+<ul>
+<li>通过ldid签名</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ldid -Sdebugserver.entitlements debugserver</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过codesign签名</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看权限信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesign -d --entitlements - debugserver</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 签名权限</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesign -f -s - --entitlements debugserver.entitlements debugserver</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者简写为</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesing -fs- --entitlements debugserver.entitlements debugserver</span></span><br></pre></td></tr></table></figure>
+<h3 id="让debugserver附加到某个APP进程"><a href="#让debugserver附加到某个APP进程" class="headerlink" title="让debugserver附加到某个APP进程"></a>让debugserver附加到某个APP进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> debugserver *:端口号 -a 进程</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> *:端口号  使用iPhone的某个端口启动debugserver服务 *标识主机地址</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -a 进程  输入APP的进程信息 (进程ID或进程名称)</span></span><br></pre></td></tr></table></figure>
+<h3 id="调试方法"><a href="#调试方法" class="headerlink" title="调试方法"></a>调试方法</h3><ol>
+<li>启动LLDB</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lldb</span></span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>连接debugserver服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process connect connect: //手机IP地址: debugserver服务端口号</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用LLDB的c命令让程序先继续执行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) c</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>接下来就可以用LLDB命令调试APP了</li>
+<li>退出连接</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process detach</span><br></pre></td></tr></table></figure>
+<p>常用的LLDB命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> debugserver -x auto *:端口号 APP的可执行文件路径</span></span><br></pre></td></tr></table></figure>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="lldb连接debugserver时报错-error-rejecting-incoming-connection-from-ffff-127-0-0-1-expecting-1"><a href="#lldb连接debugserver时报错-error-rejecting-incoming-connection-from-ffff-127-0-0-1-expecting-1" class="headerlink" title="lldb连接debugserver时报错 error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)"></a>lldb连接debugserver时报错 error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sirde-iPhone:~ root# debugserver_arm64 *:10011 -a neteasemusic</span><br><span class="line"><span class="meta">debugserver-@(#</span><span class="bash">)PROGRAM:LLDB  PROJECT:lldb-900.3.87</span></span><br><span class="line"> for arm64.</span><br><span class="line">Attaching to process neteasemusic...</span><br><span class="line">Listening to port 10011 for a connection from *...</span><br><span class="line">error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)</span><br></pre></td></tr></table></figure>
+<p>解决办法</p>
+<p>使用ip地址替换 * 和localhost</p>
+<p>手机端：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sirde-iPhone:~ root# debugserver 127.0.0.1:10011 -a neteasemusic</span><br></pre></td></tr></table></figure>
+<p>电脑端：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process connect connect://127.0.0.1:10011</span><br></pre></td></tr></table></figure>
+<h4 id="mac-lldb提示ImportError-cannot-import-name-remove-dead-weakref"><a href="#mac-lldb提示ImportError-cannot-import-name-remove-dead-weakref" class="headerlink" title="mac lldb提示ImportError: cannot import name _remove_dead_weakref"></a>mac lldb提示ImportError: cannot import name _remove_dead_weakref</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lldb</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;input&gt;", line 1, in &lt;module&gt;</span><br><span class="line">  File "/usr/local/Cellar/python@2/2.7.15_1/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy.py", line 52, in &lt;module&gt;</span><br><span class="line">    import weakref</span><br><span class="line">  File "/usr/local/Cellar/python@2/2.7.15_1/Frameworks/Python.framework/Versions/2.7/lib/python2.7/weakref.py", line 14, in &lt;module&gt;</span><br><span class="line">    from _weakref import (</span><br><span class="line">ImportError: cannot import name _remove_dead_weakref</span><br></pre></td></tr></table></figure>
+<p>查看是否安装了python和python@2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew list</span><br></pre></td></tr></table></figure>
+<p>remove 多余的 python@2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew remove python@2 --ignore-dependencies</span><br></pre></td></tr></table></figure>
+<h3 id="debugserver-在-iOS-12遇到的坑"><a href="#debugserver-在-iOS-12遇到的坑" class="headerlink" title="debugserver 在 iOS 12遇到的坑"></a>debugserver 在 iOS 12遇到的坑</h3><p>因iOS12为不完美越狱，开发中总会遇到各种困难 kill:9，可通过如下方法解决</p>
+<ol>
+<li><p>从/Developer/usr/bin/debugserver取出debugserver (或使用其他工具复制到电脑)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /Developer/usr/bin/debugserver  /var/root/</span><br><span class="line">scp root@ip:/var/root/debugserver ./</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对debugserver进行瘦身，抽取arm64架构二进制文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -thin arm64 debugserver  -output debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制debugserver_arm64到手机usr/bin目录 (可使用其他工具复制)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp debugserver_arm64 root@ip:/usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用ldid对debugserver进行签名 (也可在在电脑中签名后复制到手机)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// uncOver越狱会提供debugserver.xml在/usr/share/entitlements/debugserver.xml</span><br><span class="line">ldid -S/usr/share/entitlements/debugserver.xml /usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用inject命令 (貌似是添加信任)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inject /usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/Block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/17/Block/" itemprop="url">Block</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-17T14:43:35+08:00">
+                2019-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><p>Block本质是一个NSBlock类型的OC对象</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// eg:</span><br><span class="line">// int someVar = 20</span><br><span class="line">// void (^block)(void) = ^&#123;</span><br><span class="line">//	NSLog(&quot;var is %d&quot;, age);</span><br><span class="line">//&#125;</span><br><span class="line">// block();</span><br><span class="line"></span><br><span class="line">struct __mainblock_impl_0 &#123;-</span><br><span class="line">  struct __blockimpl impl; // 见下方__block_impl</span><br><span class="line">  struct __main_block_desc_0* Desc; // 见下方__main_block_desc_0</span><br><span class="line">  int someVar; // 捕获的变量</span><br><span class="line">  </span><br><span class="line">  // 构造函数，返回结构体对象</span><br><span class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) &#123;</span><br><span class="line">    impl.isa = &amp;_NSConcreteStackBlock;</span><br><span class="line">    impl.Flags = flags;</span><br><span class="line">    impl.FuncPtr = fp;</span><br><span class="line">    Desc = desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct __block_impl &#123;</span><br><span class="line">  void *isa;</span><br><span class="line">  int Flags;</span><br><span class="line">  int Reserved;</span><br><span class="line">  void *FuncPtr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static struct __main_block_desc_0 &#123;</span><br><span class="line">  size_t reserved; </span><br><span class="line">  size_t Block_size; // Block的大小</span><br><span class="line">&#125; __main_block_desc_0_DATA = &#123; 0, sizeof(struct __main_block_impl_0)&#125;; // 在这里计算了Block的大小</span><br><span class="line"></span><br><span class="line">// 封装了block执行逻辑的函数</span><br><span class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</span><br><span class="line">	// 这里是block内部的代码</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 执行block的代码 (已经经过简化)</span><br><span class="line">block-&gt;FuncPtr(block);</span><br></pre></td></tr></table></figure>
+<h3 id="变量的捕获-capture"><a href="#变量的捕获-capture" class="headerlink" title="变量的捕获(capture)"></a>变量的捕获(capture)</h3><ul>
+<li>局部变量<ul>
+<li>auto  (捕获, 值传递)</li>
+<li>static (捕获, 指针传递)</li>
+</ul>
+</li>
+<li>全局变量 (不捕获, 直接访问)</li>
+</ul>
+<h3 id="Block的类型"><a href="#Block的类型" class="headerlink" title="Block的类型"></a>Block的类型</h3><p>Block有3种类型，可以通过class方法或者isa指针查看具体类型，最终都是继承自NSBlock类型</p>
+<ul>
+<li><strong>__NSGlobalBlock__(_NSConcreteGlobalBlock)</strong>  -&gt; 数据区(.data)<ul>
+<li>没有访问auto变量</li>
+</ul>
+</li>
+<li><strong>__NSStackBlock__(_NSConcreteStackBlock)</strong>  -&gt; 堆<ul>
+<li>访问了auto变量</li>
+</ul>
+</li>
+<li><strong>__NSConcreteStackBlock__(_NSConcreteMallocBlock)</strong> -&gt; 栈<ul>
+<li>__NSStackBlock__调用了copy</li>
+</ul>
+</li>
+</ul>
+<h3 id="Block的copy"><a href="#Block的copy" class="headerlink" title="Block的copy"></a>Block的copy</h3><p>在<strong>ARC</strong>环境下，编译器会自动将栈上的block复制到堆上，比如如下情况</p>
+<ul>
+<li>block作为函数返回值时</li>
+<li>将block赋值给__strong指针时</li>
+<li>block作为Cocoa API中方法名含有usingBlock的方法参数时</li>
+<li>block作为GCD的方法参数</li>
+</ul>
+<h3 id="对象类型的auto变量"><a href="#对象类型的auto变量" class="headerlink" title="对象类型的auto变量"></a>对象类型的auto变量</h3><p>当block内部访问了对象类型的auto变量时</p>
+<ul>
+<li>如果block是在栈上，将不会对auto变量产生强引用</li>
+<li>如果block被拷贝到堆上<ul>
+<li>会调用block内部的copy函数</li>
+<li>copy函数内部会调用_Block_object_assign函数</li>
+<li>_Block_object_assign函数会根据auto变量的修饰符(__strong、__weak、__unsafe_unretained)做出相应的操作，类似retain(形成强引用、弱引用)</li>
+</ul>
+</li>
+<li>如果block从堆上移除<ul>
+<li>会调用block内部的dispose函数</li>
+<li>dispose函数内部会调用_Block_object_dispose函数</li>
+<li>_Block_object_dispose函数会自动释放引用的auto变量，类似release</li>
+</ul>
+</li>
+</ul>
+<h3 id="block修饰符"><a href="#block修饰符" class="headerlink" title="__block修饰符"></a>__block修饰符</h3><p>__block可以用于解决block内部无法修改auto变量值的问题</p>
+<p>__block不能修饰静态变量(static)、全局变量</p>
+<p>编辑器会将__block变量包装成一个对象</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">int</span> age = <span class="number">10</span>;</span><br><span class="line">^&#123;</span><br><span class="line">  NSlog(@<span class="string">"%d"</span>, age);</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// block对象编译成的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">main_block_impl_0</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> <span class="title">impl</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> __<span class="title">main_block_desc_0</span>* <span class="title">Desc</span>;</span></span><br><span class="line">	__Block_byref_age_0 *age; <span class="comment">// int age 包装的对象</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  生成的age对象对应的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">Block_byref_age_0</span> &#123;</span></span><br><span class="line">	<span class="keyword">void</span> *__isa;</span><br><span class="line">	__Block_byref_age_0 *__forwarding; <span class="comment">// 指向自己，用于指向堆上的对象copy</span></span><br><span class="line">	<span class="keyword">int</span> __flags;</span><br><span class="line">	<span class="keyword">int</span> __size;</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/编译C++文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -761,7 +1771,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/Shell命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/09/load 和 initialize/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -780,7 +1790,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/10/22/Shell命令/" itemprop="url">Shell命令</a></h1>
+                <a class="post-title-link" href="/2019/12/09/load 和 initialize/" itemprop="url">load 和 initialize</a></h1>
         
 
         <div class="post-meta">
@@ -792,8 +1802,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-22T11:37:40+08:00">
-                2019-10-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-09T18:37:24+08:00">
+                2019-12-09
               </time>
             
 
@@ -832,20 +1842,28 @@
       
         
           
-            <h1 id="Shell命令"><a href="#Shell命令" class="headerlink" title="Shell命令"></a>Shell命令</h1><h3 id="常用Shell命令"><a href="#常用Shell命令" class="headerlink" title="常用Shell命令"></a>常用Shell命令</h3><p>通过 <code>history</code> 命令你可以找到最近用过的命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history | grep "git clone"</span><br></pre></td></tr></table></figure>
-<p>文件内容追加</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat file1.txt &gt;&gt; file2.txt</span><br></pre></td></tr></table></figure>
-<p>更改权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 path</span><br><span class="line">chmod +x /usr/bin/Clutch // 添加可执行权限</span><br></pre></td></tr></table></figure>
-<h3 id="SSH相关"><a href="#SSH相关" class="headerlink" title="SSH相关"></a>SSH相关</h3><p>删除服务器公钥 </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R ip</span><br></pre></td></tr></table></figure>
-<p>生成ssh秘钥</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
-<p>服务器授权文件追加当前公钥</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id user@服务器ip</span><br></pre></td></tr></table></figure>
-<p>配置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim .bash_profile</span><br><span class="line">source .bash_profile   //立即生效</span><br></pre></td></tr></table></figure>
+            <h1 id="load-和-initialize"><a href="#load-和-initialize" class="headerlink" title="load 和 initialize"></a>load 和 initialize</h1><h2 id="Load"><a href="#Load" class="headerlink" title="Load"></a>Load</h2><h3 id="调用顺序"><a href="#调用顺序" class="headerlink" title="调用顺序"></a>调用顺序</h3><ol>
+<li>先调用类的+load方法（多个类的+load方法按照编译的顺序，先编译先调用）</li>
+<li>调用子类的+load之前会先调用父类的+load</li>
+<li>再调用分类的+load方法（多个分类的+load方法按照编译的顺序，先编译先调用）</li>
+</ol>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>+load方法会在runtime加载类、分类时调用</li>
+<li>每个类、分类的+load，在程序运行过程中只调用一次</li>
+<li>+load是根据方法地址直接调用，不经过objc_msgSend函数调用</li>
+</ol>
+<h2 id="initialize"><a href="#initialize" class="headerlink" title="initialize"></a>initialize</h2><p>objc-runtime-new.mm</p>
+<p>class_getInstanceMethod</p>
+<p>lookUp</p>
+<h3 id="调用顺序-1"><a href="#调用顺序-1" class="headerlink" title="调用顺序"></a>调用顺序</h3><p>先调用父类的+initialize，再调用子类的+initialize </p>
+<blockquote>
+<p>递归查找父类的+initialize方法</p>
+</blockquote>
+<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>+initialize是通过objc_msgSend进行调用的</li>
+<li>如果子类没有实现+initialize,会调用父类的+initialize（所以父类的+initialize可能会被调用多次）</li>
+<li>如果分类实现了+initialize,会覆盖类本身的+initialize调用</li>
+</ol>
 
           
         
@@ -894,7 +1912,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/npm install package-lock.json会改变/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/LLDB 动态调试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -913,7 +1931,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/05/npm install package-lock.json会改变/" itemprop="url">npm install package-lock.json会改变</a></h1>
+                <a class="post-title-link" href="/2019/12/04/LLDB 动态调试/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -925,8 +1943,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-05T18:48:55+08:00">
-                2019-08-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-04T15:57:19+08:00">
+                2019-12-04
               </time>
             
 
@@ -965,770 +1983,212 @@
       
         
           
-            <h1 id="npm-install-package-lock-json会改变"><a href="#npm-install-package-lock-json会改变" class="headerlink" title="npm install package-lock.json会改变"></a>npm install package-lock.json会改变</h1><p>问题：npm install 后 package-lock会改变，项目编译报错。。</p>
-<p>原因:package-lock.json里是会保存项目所有的依赖(包括依赖的依赖)的版本，下载地址等。 因为项目package.json中对依赖版本不同的要求，会有不同写法，比如限定最低版本，限定版本范围等等。所以在不同时间运行npm i,可能期间有些依赖会出新的版本，造成package-lock.json变动。 就算自己的项目直接依赖固定了版本号，但是你的依赖的依赖没法固定，也会出现这种现象。</p>
-<p>解决方法: nmp 5.8还是5.9添加了新命令，npm ci用于完全从package-lock.json来快速安装依赖，不会产生这个问题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/正确的布局位置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/正确的布局位置/" itemprop="url">正确的布局位置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T18:14:27+08:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正确的布局位置"><a href="#正确的布局位置" class="headerlink" title="正确的布局位置"></a>正确的布局位置</h1><p><code>UIView</code> 的子类 要保证在 <code>layoutSubviews</code> 方法内进行布局（根据 self 宽高而不是屏幕或 window 尺寸），这本来也是一个标准做法。对于 <code>ViewController</code>，系统提供了 <code>viewWillLayoutSubviews</code> 方法，类似于 <code>layoutSubviews</code>方法，你可以在这里进行 <code>vc.view</code> 及其子 <code>view</code> 的布局。在转屏、分屏后这些方法都会被触发。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/添加环境变量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/02/添加环境变量/" itemprop="url">添加环境变量</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T18:02:03+08:00">
-                2019-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h1><p>使用终端命令的时候常会出现<code>Command Not Found</code>这个错误，我们今天聊一聊这个错误出现的基本原因，出现这个问题一般因为下面4种原因；</p>
+            <p>​—<br>title: LLDB 动态调试任意APP<br>tags: iOS<br>​—</p>
+<h2 id="LLDB-动态调试任意APP"><a href="#LLDB-动态调试任意APP" class="headerlink" title="LLDB 动态调试任意APP"></a>LLDB 动态调试任意APP</h2><h3 id="debugserver权限问题"><a href="#debugserver权限问题" class="headerlink" title="debugserver权限问题"></a>debugserver权限问题</h3><ul>
+<li>默认情况下，/Developer/usr/bin/debugserver缺少一定的权限，只能调试Xcode安装的APP，无法调试其他APP（比如来自APP Store的APP）</li>
+<li>如果希望调试其他APP，需要对debugserver重新签名，签上2个调试相关的权限<ul>
+<li>get-task-allow</li>
+<li>task_for_pid-allow</li>
+</ul>
+</li>
+<li>将重签名的debugserver 放入 /usr/bin 目录</li>
+</ul>
+<p>签名方法：</p>
 <ul>
-<li>输入命令时语法错误，命令行有语法规则，必须按语法规则写；</li>
-<li>命令并没有安装，有时候安装的时候忽略了错误；</li>
-<li>命令被删除或破坏了；</li>
-<li>用户的 <code>$PATH</code> 不正确，大部分原因都是这个导致的；</li>
+<li>通过ldid签名</li>
 </ul>
-<p>出现前三种错误都比较好解决，第四中错误比较常见，有时候明明安装完成了，却还会报这个错误。命令行程序之所以可以执行是因为它本身是一个可执行程序或者是一个脚本。当在终端中输入命令的时候，操作系统会找对应的可执行文件并执行。操作系统会从环境变量<code>$PATH</code>中依次查找可执行文件，直到找到，如果找不到将报 <code>Command Not Found</code> 这个错误。</p>
-<p>查看我电脑的环境变量 <code>$PATH</code> 中包含了（每个路径通过冒号分割）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ echo $PATH</span><br><span class="line">/opt/MonkeyDev/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</span><br></pre></td></tr></table></figure>
-<p>如果报 <code>Command Not Found</code> 这个错误，首先通过<code>echo $PATH</code>查看环境变量中是否已经存在了可执行文件的路径。如果没有打开<code>.bash_profile</code>把可执行文件地绝对路径写进去即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜ vi $HOME/.bash_profile</span><br><span class="line">export PATH=&quot;$HOME/Library/Android/flutter/bin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">// 想让刚配置的 PATH 生效，需要刷新终端</span><br><span class="line">➜  source $HOME/.bash_profile</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/Mac OS 点击dock应用图标重新弹出主窗口/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/31/Mac OS 点击dock应用图标重新弹出主窗口/" itemprop="url">Mac OS 点击dock应用图标重新弹出主窗口</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-31T14:31:03+08:00">
-                2019-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#MacOS 点击dock应用图标重新弹出主窗口</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">applicationShouldHandleReopen</span><span class="params">(<span class="number">_</span> sender: NSApplication, hasVisibleWindows flag: Bool)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="type">NSApp</span>.activate(ignoringOtherApps: <span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">self</span>.window.makeKeyAndOrderFront(<span class="keyword">self</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/MacOS CGImage 保存为图片/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/19/MacOS CGImage 保存为图片/" itemprop="url">MacOS CGImage 保存为图片</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-19T17:21:40+08:00">
-                2019-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="MacOS-CGImage-保存为图片"><a href="#MacOS-CGImage-保存为图片" class="headerlink" title="MacOS CGImage 保存为图片"></a>MacOS CGImage 保存为图片</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@discardableResult</span> <span class="function"><span class="keyword">func</span> <span class="title">writeCGImage</span><span class="params">(<span class="number">_</span> image: CGImage, to destinationURL: URL)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> destination = <span class="type">CGImageDestinationCreateWithURL</span>(destinationURL <span class="keyword">as</span> <span class="type">CFURL</span>, kUTTypePNG, <span class="number">1</span>, <span class="literal">nil</span>) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">    <span class="type">CGImageDestinationAddImage</span>(destination, image, <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="type">CGImageDestinationFinalize</span>(destination)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/iOS 链式编程写法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/19/iOS 链式编程写法/" itemprop="url">iOS 链式编程写法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T17:40:45+08:00">
-                2019-03-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="iOS-链式编程写法"><a href="#iOS-链式编程写法" class="headerlink" title="iOS 链式编程写法"></a>iOS 链式编程写法</h1><h3 id="1-用’-’实现连续调用"><a href="#1-用’-’实现连续调用" class="headerlink" title="1.用’[]’实现连续调用"></a>1.用’[]’实现连续调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2;</span><br><span class="line">- (Person *)sleep2;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">- (Person *)sleep2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">[[person eat2] sleep2];</span><br><span class="line">[[person sleep2] eat2];</span><br></pre></td></tr></table></figure>
-<h3 id="2-用block实现链式"><a href="#2-用block实现链式" class="headerlink" title="2.用block实现链式"></a>2.用block实现链式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person * (^)(NSString *foodName))eat5;</span><br><span class="line">- (Person * (^)(NSInteger hour))sleep5;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *(^)(NSString *))eat5</span><br><span class="line">&#123;</span><br><span class="line">    Person * (^eat5Block)() = ^(NSString *foodName) &#123;</span><br><span class="line">        NSLog(@&quot;吃: %@&quot;,foodName);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">    return eat5Block;</span><br><span class="line">&#125;</span><br><span class="line">//上下两种写法一样</span><br><span class="line">- (Person *(^)(NSInteger))sleep5</span><br><span class="line">&#123;</span><br><span class="line">    return ^(NSInteger hour) &#123;</span><br><span class="line">        NSLog(@&quot;睡了%ld小时&quot;,(long)hour);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">person.eat5(@&quot;蛋糕&quot;).sleep5(8);</span><br><span class="line">person.sleep5(8).eat5(@&quot;面包&quot;);</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Flutter参考资料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/Flutter参考资料/" itemprop="url">Flutter参考资料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T16:03:55+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="资料整理"><a href="#资料整理" class="headerlink" title="资料整理"></a>资料整理</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
-<li><p>Flutter官方文档 <a href="https://flutter.io/docs/get-started/install" target="_blank" rel="noopener">官方文档</a> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ldid -Sdebugserver.entitlements debugserver</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过codesign签名</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看权限信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesign -d --entitlements - debugserver</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 签名权限</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesign -f -s - --entitlements debugserver.entitlements debugserver</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者简写为</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> codesing -fs- --entitlements debugserver.entitlements debugserver</span></span><br></pre></td></tr></table></figure>
+<h3 id="让debugserver附加到某个APP进程"><a href="#让debugserver附加到某个APP进程" class="headerlink" title="让debugserver附加到某个APP进程"></a>让debugserver附加到某个APP进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> debugserver *:端口号 -a 进程</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> *:端口号  使用iPhone的某个端口启动debugserver服务 *标识主机地址</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -a 进程  输入APP的进程信息 (进程ID或进程名称)</span></span><br></pre></td></tr></table></figure>
+<h3 id="调试方法"><a href="#调试方法" class="headerlink" title="调试方法"></a>调试方法</h3><ol>
+<li>启动LLDB</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lldb</span></span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>连接debugserver服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process connect connect: //手机IP地址: debugserver服务端口号</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用LLDB的c命令让程序先继续执行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) c</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>接下来就可以用LLDB命令调试APP了</li>
+<li>退出连接</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process detach</span><br></pre></td></tr></table></figure>
+<p>通过debugserver启动APP</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> debugserver -x auto *:端口号 APP的可执行文件路径</span></span><br></pre></td></tr></table></figure>
+<h2 id="LLDB-用法"><a href="#LLDB-用法" class="headerlink" title="LLDB 用法"></a>LLDB 用法</h2><h4 id="指令的格式"><a href="#指令的格式" class="headerlink" title="指令的格式"></a>指令的格式</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &lt;<span class="built_in">command</span>&gt;: 命令</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;subcommand&gt;: 子命令</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;action&gt;: 命令操作</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;options&gt;: 命令选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;arguments&gt;: 命令参数</span></span><br><span class="line">&lt;command&gt; [&lt;subcommand&gt; [&lt;subcommand&gt;]] &lt;action&gt; [-option [option-value]] [argument [argument...]]</span><br></pre></td></tr></table></figure>
+<p>比如给test函数设置断点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">breakpoint set -n test </span><br><span class="line"><span class="meta">#</span><span class="bash"> breakpoint -- &lt;<span class="built_in">command</span>&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> -- &lt;action&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -n -- &lt;options&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">test</span> -- &lt;arguments&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="常用LLDB命令"><a href="#常用LLDB命令" class="headerlink" title="常用LLDB命令"></a>常用LLDB命令</h4><ul>
+<li><strong>help</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">help + &lt;command&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">help</span> breakpoint</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>expression</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">expression &lt;cmd-options&gt;--&lt;expr&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行一个表达式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;cmd-options&gt;: 命令选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -- 命令选项结束符,标识所有的命令已经设置完毕，如果没有命令选项，--可以省略</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;expr&gt;: 需要执行的表达式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> expression self.view.backgroundColor = [UIColor redColor]</span></span><br></pre></td></tr></table></figure>
+<p>注：</p>
+<blockquote>
+<p> <code>expression</code>、<code>expression —</code>和指令<code>print</code>、<code>p</code>、<code>call</code>的效果一样</p>
+</blockquote>
+<blockquote>
+<p><code>expression、-O —</code> 和指令<code>po</code>效果一样</p>
+</blockquote>
+<blockquote>
+<p><code>po $寄存器</code> 可直接打印寄存器地址指向的内容</p>
+</blockquote>
+<blockquote>
+<p>x/&lt;类型&gt; 地址 可读取内存内容 eg:<code>x/s $x1</code> 可读取x1寄存器的字符串</p>
+</blockquote>
+<ul>
+<li><p><strong>Thread backtrack</strong></p>
+<p>打印线程的堆栈信息</p>
+<p>和指令bt的效果一样</p>
 </li>
-<li><p>国内翻译版本 <a href="https://flutterchina.club/get-started/install/" target="_blank" rel="noopener">Flutter中文网</a></p>
+<li><p><strong>thread return <expr></expr></strong></p>
+<p>让函数直接返回某个值，不会执行断点后面的代码</p>
+</li>
+<li><p><strong>frame variable [<variable-name>]</variable-name></strong></p>
+<p>打印当前栈帧的变量</p>
+</li>
+<li><p><strong>thread continue、c</strong> : 程序继续执行</p>
+</li>
+<li><p><strong>thread step-over、next、n</strong> : 单步运行，把子函数当做整体一步执行</p>
+</li>
+<li><p><strong>thread step-in、step、s</strong> :  单步运行，遇到子函数会进入子函数</p>
+</li>
+<li><p><strong>thread step-out、finish</strong> :直接执行完当前函数所有代码，返回上一个函数</p>
+</li>
+<li><p><strong>si、ni和s、n类似</strong> </p>
+<p>thread step-inst-over、nexti、ni</p>
+<p>Thread step-inset、stepi、si</p>
+<p>s、n是源码级别</p>
+<p>si、ni是汇编指令级别</p>
+</li>
+<li><p><strong>breakpoint set</strong> </p>
+<ul>
+<li>breakpoint set -a 函数地址</li>
+<li>breakpoint set -n 函数名 （注：调试第三方程序时不能使用函数名打断点）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">breakpoint set -n test</span><br><span class="line">breakpoint set -n touchesBegan:withEvent:</span><br><span class="line">breakpoint set -n "-[ViewController touchesBegan:withEvent:]"</span><br></pre></td></tr></table></figure>
+<ul>
+<li>breakpoint set -r 正则表达式</li>
+<li>breakpoint set -s 动态库 -n 函数名</li>
+</ul>
+</li>
+<li><p><strong>breakpoint list</strong> : 列出所有的断点(每个断点都有自己的编号)</p>
+</li>
+<li><p><strong>breakpoint disable 断点编号</strong> 禁用断点</p>
+</li>
+<li><p><strong>breakpoint enable 断点编号</strong> 启用断点</p>
+</li>
+<li><p><strong>breakpoint delete 断点编号</strong> 删除断点</p>
+</li>
+<li><p><strong>breakpoint command add 断点编号</strong> 给断点预习设置需要执行的命令，到触发断点时，就会按顺序执行</p>
+</li>
+<li><p><strong>breakpoint command list 断点编号</strong> 查看某个断点设置的命令</p>
+</li>
+<li><p><strong>breakpoint  command delete 断点编号</strong> 删除某个断点设置的命令</p>
+</li>
+<li><p><strong>内存断点</strong></p>
+<ul>
+<li><p>在内存数据发生改变的时候触发</p>
+</li>
+<li><p>watchpoint set variable 变量</p>
+<p><code>watchpoint set variable self-&gt;age</code></p>
+</li>
+<li><p>watchpoint set expression 地址</p>
+<p><code>watchpoint set expression &amp;(self-&gt;age)</code></p>
+</li>
+<li><p>watchpoint list</p>
+</li>
+<li><p>watchpoint disable 断点编号</p>
+</li>
+<li><p>watchpoint enable 断点编号</p>
+</li>
+<li><p>watchpoint delete 断点编号</p>
+</li>
+<li><p>watchpoint command add 断点编号</p>
+</li>
+<li><p>watchpoint command list 断点编号</p>
+</li>
+<li><p>watchpoint command delete 断点编号</p>
 </li>
 </ul>
-<h3 id="其他文章"><a href="#其他文章" class="headerlink" title="其他文章"></a>其他文章</h3><ul>
-<li>Dart基础语法 <a href="https://www.jianshu.com/p/3d927a7bf020" target="_blank" rel="noopener">Dart基础语法</a></li>
-<li>Dart语法-类与函数 <a href="https://www.jianshu.com/p/44ae73a58ebc" target="_blank" rel="noopener">Dart语法-类与函数</a> </li>
-<li>美团技术团队 <a href="https://mp.weixin.qq.com/s/cJjKZCqc8UuzvEtxK1BJCw" target="_blank" rel="noopener">Flutter的原理及美团的实践</a> </li>
-<li>在现有程序中集成Flutter<a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller" target="_blank" rel="noopener">官方链接</a></li>
-</ul>
-<h3 id="Flutter-项目"><a href="#Flutter-项目" class="headerlink" title="Flutter 项目"></a>Flutter 项目</h3><ul>
-<li>WanAndroid-Flutter(适合入门学习) <a href="https://github.com/canhuah/WanAndroid-Flutter" target="_blank" rel="noopener">https://github.com/canhuah/WanAndroid-Flutter</a></li>
-<li>开源中国Flutter版 <a href="https://github.com/yubo725/flutter-osc" target="_blank" rel="noopener">https://github.com/yubo725/flutter-osc</a></li>
-<li>Flutter仿写开眼视频 <a href="https://github.com/wtus/flutter_kaiyan" target="_blank" rel="noopener">https://github.com/wtus/flutter_kaiyan</a></li>
-<li>Flutter Github客户端 <a href="https://github.com/CarGuo/GSYGithubAppFlutter" target="_blank" rel="noopener">https://github.com/CarGuo/GSYGithubAppFlutter</a></li>
-<li>万物起源 <a href="https://github.com/2d-inc/HistoryOfEverything" target="_blank" rel="noopener">https://github.com/2d-inc/HistoryOfEverything</a></li>
-</ul>
-<h3 id="常用链接"><a href="#常用链接" class="headerlink" title="常用链接"></a>常用链接</h3><ul>
-<li><p>Widgets 目录 <a href="https://flutterchina.club/widgets/" target="_blank" rel="noopener">https://flutterchina.club/widgets/</a></p>
 </li>
-<li><p>iOS风格widgets <a href="https://flutter.io/docs/development/ui/widgets/cupertino" target="_blank" rel="noopener">https://flutter.io/docs/development/ui/widgets/cupertino</a></p>
+<li><p><strong>image lookup</strong></p>
+<ul>
+<li>image lookup -t 类型： 查找某个类型的信息</li>
+<li>image lookup -a 地址： 根据内存地址查找在模块中的位置</li>
+<li>Image lookup -n 符号或者函数名： 查找某个符号或者函数的位置</li>
+</ul>
 </li>
-<li><p>Packages <a href="https://pub.dartlang.org/" target="_blank" rel="noopener">https://pub.dartlang.org/</a></p>
+<li><p><strong>image list</strong></p>
+<p>列出所加载的模块信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image list -o -f # 打印出模块的偏移地址、全路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>memory read</strong></p>
+<p>读取所有寄存器的值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> memory <span class="built_in">read</span>/[数量][格式][字节数] [内存地址]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> x/[数量][格式][字节数] [内存地址]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 格式: x-&gt;16进制; d-&gt;10进制; f-&gt;浮点数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 字节大小: b-&gt;byte 1字节; h-&gt;half word 2字节; w-&gt;word 4字节; g-&gt;giant word 8字节</span></span><br><span class="line">x/3xw 0x10010</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<ul>
+<li><p><strong>memory write</strong> 寄存器 值</p>
+<p>给某个寄存器写入值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> memory write [内存地址] [数值]</span></span><br><span class="line">memory write 0x0000010 10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>po $x0</strong> 打印方法调用者</p>
+</li>
+<li><p><strong>x/s $x1</strong> 打印方法名</p>
+</li>
+<li><p><strong>po $x2</strong> 打印参数 (以此类推，x3,x4也可能是参数)</p>
+<blockquote>
+<p>如果是非arm64, 寄存器就是r0,r1,r2</p>
+</blockquote>
+</li>
+<li><p><strong>小技巧</strong></p>
+<ul>
+<li>敲Enter，会自动执行上次的命令</li>
+<li>绝大多数命令都可以使用缩写</li>
+</ul>
+</li>
+</ul>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="lldb连接debugserver时报错-error-rejecting-incoming-connection-from-ffff-127-0-0-1-expecting-1"><a href="#lldb连接debugserver时报错-error-rejecting-incoming-connection-from-ffff-127-0-0-1-expecting-1" class="headerlink" title="lldb连接debugserver时报错 error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)"></a>lldb连接debugserver时报错 error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sirde-iPhone:~ root# debugserver_arm64 *:10011 -a neteasemusic</span><br><span class="line"><span class="meta">debugserver-@(#</span><span class="bash">)PROGRAM:LLDB  PROJECT:lldb-900.3.87</span></span><br><span class="line"> for arm64.</span><br><span class="line">Attaching to process neteasemusic...</span><br><span class="line">Listening to port 10011 for a connection from *...</span><br><span class="line">error: rejecting incoming connection from ::ffff:127.0.0.1 (expecting ::1)</span><br></pre></td></tr></table></figure>
+<p>解决办法</p>
+<p>使用ip地址替换 * 和localhost</p>
+<p>手机端：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sirde-iPhone:~ root# debugserver 127.0.0.1:10011 -a neteasemusic</span><br></pre></td></tr></table></figure>
+<p>电脑端：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process connect connect://127.0.0.1:10011</span><br></pre></td></tr></table></figure>
+<h4 id="mac-lldb提示ImportError-cannot-import-name-remove-dead-weakref"><a href="#mac-lldb提示ImportError-cannot-import-name-remove-dead-weakref" class="headerlink" title="mac lldb提示ImportError: cannot import name _remove_dead_weakref"></a>mac lldb提示ImportError: cannot import name _remove_dead_weakref</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ lldb</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;input&gt;", line 1, in &lt;module&gt;</span><br><span class="line">  File "/usr/local/Cellar/python@2/2.7.15_1/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy.py", line 52, in &lt;module&gt;</span><br><span class="line">    import weakref</span><br><span class="line">  File "/usr/local/Cellar/python@2/2.7.15_1/Frameworks/Python.framework/Versions/2.7/lib/python2.7/weakref.py", line 14, in &lt;module&gt;</span><br><span class="line">    from _weakref import (</span><br><span class="line">ImportError: cannot import name _remove_dead_weakref</span><br></pre></td></tr></table></figure>
+<p>查看是否安装了python和python@2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew list</span><br></pre></td></tr></table></figure>
+<p>remove 多余的 python@2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew remove python@2 --ignore-dependencies</span><br></pre></td></tr></table></figure>
+<h3 id="debugserver-在-iOS-12遇到的坑"><a href="#debugserver-在-iOS-12遇到的坑" class="headerlink" title="debugserver 在 iOS 12遇到的坑"></a>debugserver 在 iOS 12遇到的坑</h3><p>因iOS12为不完美越狱，开发中总会遇到各种困难 kill:9，可通过如下方法解决</p>
+<ol>
+<li><p>从/Developer/usr/bin/debugserver取出debugserver (或使用其他工具复制到电脑)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /Developer/usr/bin/debugserver  /var/root/</span><br><span class="line">scp root@ip:/var/root/debugserver ./</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对debugserver进行瘦身，抽取arm64架构二进制文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -thin arm64 debugserver  -output debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制debugserver_arm64到手机usr/bin目录 (可使用其他工具复制)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp debugserver_arm64 root@ip:/usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用ldid对debugserver进行签名 (也可在在电脑中签名后复制到手机)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// uncOver越狱会提供debugserver.xml在/usr/share/entitlements/debugserver.xml</span><br><span class="line">ldid -S/usr/share/entitlements/debugserver.xml /usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用inject命令 (貌似是添加信任)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inject /usr/bin/debugserver_arm64</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
           
         
@@ -1768,7 +2228,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1812,7 +2272,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

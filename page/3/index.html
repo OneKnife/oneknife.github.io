@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/tableView reloadData时 setContentOffset失效问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/iOS 链式编程写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/tableView reloadData时 setContentOffset失效问题/" itemprop="url">iOS tableView reloadData时 setContentOffset失效问题</a></h1>
+                <a class="post-title-link" href="/2019/03/19/iOS 链式编程写法/" itemprop="url">iOS 链式编程写法</a></h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T10:24:22+08:00">
-                2018-11-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T17:40:45+08:00">
+                2019-03-19
               </time>
             
 
@@ -331,8 +331,157 @@
       
         
           
-            <h1 id="iOS-tableView-reloadData时-setContentOffset失效问题"><a href="#iOS-tableView-reloadData时-setContentOffset失效问题" class="headerlink" title="iOS tableView reloadData时 setContentOffset失效问题"></a>iOS tableView reloadData时 setContentOffset失效问题</h1><p>将预估高度关闭即可解决</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tableView.estimatedRowHeight = <span class="number">0</span></span><br><span class="line">tableView.estimatedSectionFooterHeight = <span class="number">0</span></span><br><span class="line">tableView.estimatedSectionHeaderHeight = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+            <h1 id="iOS-链式编程写法"><a href="#iOS-链式编程写法" class="headerlink" title="iOS 链式编程写法"></a>iOS 链式编程写法</h1><h3 id="1-用’-’实现连续调用"><a href="#1-用’-’实现连续调用" class="headerlink" title="1.用’[]’实现连续调用"></a>1.用’[]’实现连续调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2;</span><br><span class="line">- (Person *)sleep2;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">- (Person *)sleep2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">[[person eat2] sleep2];</span><br><span class="line">[[person sleep2] eat2];</span><br></pre></td></tr></table></figure>
+<h3 id="2-用block实现链式"><a href="#2-用block实现链式" class="headerlink" title="2.用block实现链式"></a>2.用block实现链式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person * (^)(NSString *foodName))eat5;</span><br><span class="line">- (Person * (^)(NSInteger hour))sleep5;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *(^)(NSString *))eat5</span><br><span class="line">&#123;</span><br><span class="line">    Person * (^eat5Block)() = ^(NSString *foodName) &#123;</span><br><span class="line">        NSLog(@&quot;吃: %@&quot;,foodName);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">    return eat5Block;</span><br><span class="line">&#125;</span><br><span class="line">//上下两种写法一样</span><br><span class="line">- (Person *(^)(NSInteger))sleep5</span><br><span class="line">&#123;</span><br><span class="line">    return ^(NSInteger hour) &#123;</span><br><span class="line">        NSLog(@&quot;睡了%ld小时&quot;,(long)hour);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">person.eat5(@&quot;蛋糕&quot;).sleep5(8);</span><br><span class="line">person.sleep5(8).eat5(@&quot;面包&quot;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Flutter参考资料/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/28/Flutter参考资料/" itemprop="url">Flutter参考资料</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T16:03:55+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="资料整理"><a href="#资料整理" class="headerlink" title="资料整理"></a>资料整理</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><p>Flutter官方文档 <a href="https://flutter.io/docs/get-started/install" target="_blank" rel="noopener">官方文档</a> </p>
+</li>
+<li><p>国内翻译版本 <a href="https://flutterchina.club/get-started/install/" target="_blank" rel="noopener">Flutter中文网</a></p>
+</li>
+</ul>
+<h3 id="其他文章"><a href="#其他文章" class="headerlink" title="其他文章"></a>其他文章</h3><ul>
+<li>Dart基础语法 <a href="https://www.jianshu.com/p/3d927a7bf020" target="_blank" rel="noopener">Dart基础语法</a></li>
+<li>Dart语法-类与函数 <a href="https://www.jianshu.com/p/44ae73a58ebc" target="_blank" rel="noopener">Dart语法-类与函数</a> </li>
+<li>美团技术团队 <a href="https://mp.weixin.qq.com/s/cJjKZCqc8UuzvEtxK1BJCw" target="_blank" rel="noopener">Flutter的原理及美团的实践</a> </li>
+<li>在现有程序中集成Flutter<a href="https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps#experiment-integrate-flutterviewcontroller" target="_blank" rel="noopener">官方链接</a></li>
+</ul>
+<h3 id="Flutter-项目"><a href="#Flutter-项目" class="headerlink" title="Flutter 项目"></a>Flutter 项目</h3><ul>
+<li>WanAndroid-Flutter(适合入门学习) <a href="https://github.com/canhuah/WanAndroid-Flutter" target="_blank" rel="noopener">https://github.com/canhuah/WanAndroid-Flutter</a></li>
+<li>开源中国Flutter版 <a href="https://github.com/yubo725/flutter-osc" target="_blank" rel="noopener">https://github.com/yubo725/flutter-osc</a></li>
+<li>Flutter仿写开眼视频 <a href="https://github.com/wtus/flutter_kaiyan" target="_blank" rel="noopener">https://github.com/wtus/flutter_kaiyan</a></li>
+<li>Flutter Github客户端 <a href="https://github.com/CarGuo/GSYGithubAppFlutter" target="_blank" rel="noopener">https://github.com/CarGuo/GSYGithubAppFlutter</a></li>
+<li>万物起源 <a href="https://github.com/2d-inc/HistoryOfEverything" target="_blank" rel="noopener">https://github.com/2d-inc/HistoryOfEverything</a></li>
+</ul>
+<h3 id="常用链接"><a href="#常用链接" class="headerlink" title="常用链接"></a>常用链接</h3><ul>
+<li><p>Widgets 目录 <a href="https://flutterchina.club/widgets/" target="_blank" rel="noopener">https://flutterchina.club/widgets/</a></p>
+</li>
+<li><p>iOS风格widgets <a href="https://flutter.io/docs/development/ui/widgets/cupertino" target="_blank" rel="noopener">https://flutter.io/docs/development/ui/widgets/cupertino</a></p>
+</li>
+<li><p>Packages <a href="https://pub.dartlang.org/" target="_blank" rel="noopener">https://pub.dartlang.org/</a></p>
+</li>
+</ul>
 
           
         
@@ -381,7 +530,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/Apple Pay Certificate 即将过期处理方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -400,7 +549,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/18/Apple Pay Certificate 即将过期处理方法/" itemprop="url">Apple Pay证书有效期</a></h1>
+                <a class="post-title-link" href="/2019/02/28/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -412,8 +561,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-18T15:13:48+08:00">
-                2018-10-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T10:20:27+08:00">
+                2019-02-28
               </time>
             
 
@@ -452,15 +601,804 @@
       
         
           
-            <h1 id="iOS证书更新"><a href="#iOS证书更新" class="headerlink" title="iOS证书更新"></a>iOS证书更新</h1><h3 id="Apple-Pay证书有效期"><a href="#Apple-Pay证书有效期" class="headerlink" title="Apple Pay证书有效期"></a>Apple Pay证书有效期</h3><p>Apple Pay Payment Processing Certificate 的有效期是 25个月，比较早接入Apple Pay 的开发者，现在应该都该到了要更新证书的时候了。</p>
-<p>Apple 将会在到期前 30/15/7 天发送邮件提醒开发者尽快更新证书。</p>
-<h3 id="如何更新证书"><a href="#如何更新证书" class="headerlink" title="如何更新证书"></a>如何更新证书</h3><ol>
-<li>登陆<a href="http://developer.apple.com/account" target="_blank" rel="noopener">http://developer.apple.com/account</a></li>
-<li>依次选择 Merchant IDs -&gt; 当前使用的Merchant ID -&gt; Edit</li>
-<li>点击“Create Certificate”</li>
-<li>上传银联下载的CSR文件 (如果还保留着银联下载的CSR文件的可以直接上传，如果没有存档可以在银联后台点击“获取CSR”重新下载，请勿点击重置CSR，会影响线上支付！)</li>
-<li>生成新的证书之后，点击新证书“Activite”， 将会自动Revoke旧证书并启用新证书，不会影响线上支付。</li>
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/11/autojump 使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/11/autojump 使用/" itemprop="url">autojump 使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-11T16:12:56+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="autojump-使用"><a href="#autojump-使用" class="headerlink" title="autojump 使用"></a>autojump 使用</h1><p>autojump 可以记录我们最近使用过的目录，让你跳转文件夹更加快捷。</p>
+<p>建议配合zsh一起使用</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>使用brew 安装 autojump</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install autojump</span><br></pre></td></tr></table></figure>
+<p>在.zshrc 中的plusins中添加 autojump</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins=(</span><br><span class="line">  git </span><br><span class="line">  autojump</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>文件末尾添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew --prefix)/etc/profile.d/autojump.sh</span><br></pre></td></tr></table></figure>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">j directoryName</span><br></pre></td></tr></table></figure>
+<p>好了，现在可以自由穿梭在各个目录中了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/CaptainHook 的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/27/CaptainHook 的使用/" itemprop="url">CaptainHook 的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T17:53:32+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CaptainHook-的使用"><a href="#CaptainHook-的使用" class="headerlink" title="CaptainHook 的使用"></a>CaptainHook 的使用</h1><p>在iOS逆向的时候发现一个很好用的库，他定义了一些hook常用的宏定义</p>
+<ul>
+<li><code>CHDeclareClass</code> 声明需要Hook的类</li>
+<li><code>CHMethod</code>作用是对应的方法Hook的实现</li>
+<li><code>CHConstructor</code>构造函数，在这里调用CHLoadLateClass加载Hook的方法和所在的类</li>
+<li><code>CHLoadLateClass</code>加载Hook类</li>
+<li><code>CHHook</code>注册Hook方法</li>
+<li><code>CHOptimizedClassMethod</code> 对类方法Hook</li>
+<li><code>CHSuper</code> 调用</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>声明需要Hook的类</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CHDeclareClass(HookClass)</span><br></pre></td></tr></table></figure>
+<p>Hook 对应的方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 无参数的</span></span><br><span class="line"><span class="comment">// 第一个参数是 返回值类型  </span></span><br><span class="line"><span class="comment">// 第二个参数是 需要Hook的类名</span></span><br><span class="line"><span class="comment">// 第三个参数是 需要hook的方法名</span></span><br><span class="line">CHMethod0(<span class="built_in">NSString</span> *, HookClass, hookMethod) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"需要的返回值"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有参数的</span></span><br><span class="line"><span class="comment">// 第一个参数是 返回值类型  </span></span><br><span class="line"><span class="comment">// 第二个参数是 需要Hook的类名</span></span><br><span class="line"><span class="comment">// 第三个参数是 需要hook的方法名</span></span><br><span class="line"><span class="comment">// 第四个参数是 参数的类型 </span></span><br><span class="line"><span class="comment">// 第五个参数是 参数的名称</span></span><br><span class="line">CHMethod1(<span class="keyword">void</span>, AWEAwemeModel, setVideo, AWEVideoModel *, arg1) &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> isHookDownLoad = [UserDefaults boolForKey:HookDownLoad];</span><br><span class="line">    <span class="keyword">if</span> (isHookDownLoad) &#123;</span><br><span class="line">        arg1.downloadURL.originURLList = arg1.playURL.originURLList;</span><br><span class="line">    &#125;</span><br><span class="line">    CHSuper1(AWEAwemeModel, setVideo, arg1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对类方法Hook</span></span><br><span class="line"><span class="comment">// 第一个参数 optimization 不太清楚是什么, 应该是传self就好</span></span><br><span class="line"><span class="comment">// 第二个参数 返回值类型</span></span><br><span class="line"><span class="comment">// 第三个参数 需要Hook的类名</span></span><br><span class="line"><span class="comment">// 第四个参数 需要Hook的方法名</span></span><br><span class="line">CHOptimizedClassMethod0(<span class="keyword">self</span>, <span class="built_in">NSArray</span> *, AWEDynamicWaterMarkExporter, watermarkLogoImageArray) &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> isHookWaterMark = [UserDefaults boolForKey:HookWaterMark];</span><br><span class="line">    <span class="keyword">if</span> (isHookWaterMark) &#123;</span><br><span class="line">        <span class="keyword">return</span> @[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> CHSuper0(AWEDynamicWaterMarkExporter, watermarkLogoImageArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Hook</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line">CHConstructor &#123;</span><br><span class="line">	<span class="comment">// 加载注册过的类</span></span><br><span class="line">    CHLoadLateClass(AWEAwemeModel);</span><br><span class="line">    <span class="comment">// 注册Hook方法</span></span><br><span class="line">    CHHook1(AWEAwemeModel, setPreventDownload);</span><br><span class="line">    <span class="comment">// 注册Hook类方法</span></span><br><span class="line">    CHClassHook0(AWEDynamicWaterMarkExporter, watermarkLogoImageArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加新属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先添加一个属性</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HookClass</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *newProperty;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加新的属性</span></span><br><span class="line">CHPropertyRetainNonatomic(HookClass, <span class="built_in">NSString</span>*, </span><br><span class="line">newProperty, setNewProperty);</span><br><span class="line"></span><br><span class="line">CHConstructor&#123;</span><br><span class="line">    CHHook0(HookClass, newProperty);</span><br><span class="line">    CHHook1(HookClass, setNewProperty);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基本这些就够用了，剩下的都差不多，自己尝试下就好。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/iOS 逆向 笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/27/iOS 逆向 笔记/" itemprop="url">iOS逆向笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-27T17:24:02+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="iOS-逆向-笔记"><a href="#iOS-逆向-笔记" class="headerlink" title="iOS 逆向 笔记"></a>iOS 逆向 笔记</h1><h3 id="ipa砸壳"><a href="#ipa砸壳" class="headerlink" title="ipa砸壳"></a>ipa砸壳</h3><p>首先获取一个砸壳的ipa，好像都需要一部越狱手机，我没有直接在pp助手下载了一个。</p>
+<h3 id="导出头文件"><a href="#导出头文件" class="headerlink" title="导出头文件"></a>导出头文件</h3><p>使用<a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">class-dump</a>导出头文件</p>
+<p>下载 class-dump 后把 class-dump 放入 <code>/usr/local/bin</code> 目录下，并修改权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 777 /usr/local/bin/class-dump</span><br></pre></td></tr></table></figure>
+<p>执行 class-dump 命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -H [xxx.app所在的位置] -o [头文件导出的位置]</span><br></pre></td></tr></table></figure>
+<h3 id="Hopper-反编译"><a href="#Hopper-反编译" class="headerlink" title="Hopper 反编译"></a>Hopper 反编译</h3><p>使用方法很简单，下载安装后直接将破壳后的.app文件拖进去即可</p>
+<p>它有四种显示模式，分别是：<code>汇编模式</code>、<code>控制流图模式</code>、<code>伪代码模式</code>、<code>十六进制模式</code>，我们主要通过<code>伪代码模式</code> 来查找方法调用，找到需要Hook的方法。</p>
+<h3 id="Hook"><a href="#Hook" class="headerlink" title="Hook"></a>Hook</h3><p>使用 <a href="https://github.com/rpetrich/CaptainHook" target="_blank" rel="noopener">CaptainHook</a> Hook 代码</p>
+<ul>
+<li><code>CHDeclareClass</code>作用是声明需要Hook的类</li>
+<li><code>CHMethod</code>作用是对应的方法Hook的实现</li>
+<li><code>CHConstructor</code>作用是用于加载Hook的方法和所在的类</li>
+<li><code>CHLoadLateClass</code>加载Hook类</li>
+<li><code>CHHook</code>注册Hook方法</li>
+</ul>
+<h3 id="MonkeyDev"><a href="#MonkeyDev" class="headerlink" title="MonkeyDev"></a>MonkeyDev</h3><p> MonkeyDev 帮我们简化了 Hook的流程，只关心具体的代码实现。他帮我们做了：</p>
+<ul>
+<li>创建dylib, hook类的属性或方法</li>
+<li>将dylib注入App中</li>
+<li>冲签名ipa文件</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/在Swift 中使用 load 和 initialize 方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/在Swift 中使用 load 和 initialize 方法/" itemprop="url">在Swift 中使用 load 和 initialize 方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T15:38:53+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="在Swift-中使用-load-和-initialize-方法"><a href="#在Swift-中使用-load-和-initialize-方法" class="headerlink" title="在Swift 中使用 load 和 initialize 方法"></a>在Swift 中使用 load 和 initialize 方法</h1><p>从Swift4.x之后，load和initialize方法都不能使用了，如果必须要使用的话，只能通过Objective-C调用</p>
+<p>Swift:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>: <span class="title">NSObjct</span> </span>&#123;</span><br><span class="line">    <span class="meta">@objc</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">swiftLoad</span>() </span>&#123;</span><br><span class="line">        <span class="comment">// load</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@objc</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">swiftInitialize</span>() </span>&#123;</span><br><span class="line">        <span class="comment">// initialize</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objctive-C:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@implementation MyClass (Private) </span><br><span class="line">    + (void)load &#123;</span><br><span class="line">    	[self swiftLoad];</span><br><span class="line">    &#125;</span><br><span class="line">    + (void)initialize &#123;</span><br><span class="line">		[self swiftInitialize];</span><br><span class="line">    &#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>不过既然Swift禁用了这个方法，肯定是有道理的，尽量还是不用吧</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/Swift 和 OC 交互/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/20/Swift 和 OC 交互/" itemprop="url">Swift 和 OC之间传递包含block的NSDictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-20T15:18:20+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Swift-和-OC之间传递包含block的NSDictionary"><a href="#Swift-和-OC之间传递包含block的NSDictionary" class="headerlink" title="Swift 和 OC之间传递包含block的NSDictionary"></a>Swift 和 OC之间传递包含block的NSDictionary</h2><p>Swift 之间:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 放入</span></span><br><span class="line"><span class="keyword">let</span> params = [</span><br><span class="line">            <span class="string">"callback"</span>:callback</span><br><span class="line">            ] <span class="keyword">as</span> [<span class="type">AnyHashable</span> : <span class="type">Any</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> callback = params[<span class="string">"callback"</span>] <span class="keyword">as</span>? (<span class="type">String</span>) -&gt; <span class="type">Void</span> &#123;</span><br><span class="line">    callback(<span class="string">"success"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objcective-C 之间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 放入</span><br><span class="line">NSMutableDictionary *params = [[NSMutableDictionary alloc] init];</span><br><span class="line">params[@&quot;callback&quot;] = callback;</span><br><span class="line"></span><br><span class="line">// 读取</span><br><span class="line">typedef void (^CallbackType)(NSString *);</span><br><span class="line">CallbackType callback = params[@&quot;callback&quot;];</span><br><span class="line">if (callback) &#123;</span><br><span class="line">    callback(@&quot;success&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Swift-和-OC之间传递-NSDictionary-如果包含-block需注意"><a href="#Swift-和-OC之间传递-NSDictionary-如果包含-block需注意" class="headerlink" title="Swift 和 OC之间传递 NSDictionary 如果包含 block需注意:"></a>Swift 和 OC之间传递 NSDictionary 如果包含 block需注意:</h4><p>Swift -&gt; Objective-C</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift传入 需转换</span></span><br><span class="line"><span class="keyword">let</span> callbackBlock = callback <span class="keyword">as</span> <span class="meta">@convention</span>(block) (<span class="type">String</span>) -&gt; <span class="type">Void</span></span><br><span class="line"><span class="keyword">let</span> callbackBlockObject = <span class="built_in">unsafeBitCast</span>(callbackBlock, to: <span class="type">AnyObject</span>.<span class="keyword">self</span>)</span><br><span class="line"><span class="keyword">let</span> params = [<span class="string">"callback"</span>:callbackBlockObject] <span class="keyword">as</span> [<span class="type">AnyHashable</span>:<span class="type">Any</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Objective-C 正常读取</span><br><span class="line">typedef void (^CallbackType)(NSString *);</span><br><span class="line">CallbackType callback = params[@&quot;callback&quot;];</span><br><span class="line">if (callback) &#123;</span><br><span class="line">    callback(@&quot;success&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objective-C -&gt; Swift</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// Objective-C 正常传入</span><br><span class="line">NSMutableDictionary *params = [[NSMutableDictionary alloc] init];</span><br><span class="line">params[@&quot;callback&quot;] = callback;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift 需转换</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> block = params[<span class="string">"callback"</span>] &#123;        </span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">CallbackType</span> = <span class="meta">@convention</span>(block) (<span class="type">NSString</span>) -&gt; <span class="type">Void</span></span><br><span class="line">    <span class="keyword">let</span> blockPtr = <span class="type">UnsafeRawPointer</span>(<span class="type">Unmanaged</span>&lt;<span class="type">AnyObject</span>&gt;.passUnretained(block <span class="keyword">as</span> <span class="type">AnyObject</span>).toOpaque())</span><br><span class="line">    <span class="keyword">let</span> callback = <span class="built_in">unsafeBitCast</span>(blockPtr, to: <span class="type">CallbackType</span>.<span class="keyword">self</span>)</span><br><span class="line">    callback(<span class="string">"success"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/关于Bounds的一点新理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/19/关于Bounds的一点新理解/" itemprop="url">关于Bounds的一点新理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-19T11:31:16+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于Bounds的一点新理解"><a href="#关于Bounds的一点新理解" class="headerlink" title="关于Bounds的一点新理解"></a>关于Bounds的一点新理解</h1><p>bounds 这个很熟悉的概念，今天突然有了一点新理解。</p>
+<p>它也是描述的是视图的位置和大小，只不过是在自己的坐标系上。也就是说它描述的是当前视图相对于自身坐标系的位置和大小。</p>
+<h4 id="修改bounds的影响"><a href="#修改bounds的影响" class="headerlink" title="修改bounds的影响"></a>修改bounds的影响</h4><ol>
+<li>可以修改自己坐标系原点的坐标，进而影响子view的位置（这是我们大家都知道的）</li>
+<li>如果改变bounds.size，那么frame也会改变，但是frame.origin也会发生变化。就好像被撑大了，是往四周平均撑开的那样。缩小也是四周一起往里缩。</li>
 </ol>
+<h4 id="bounds-size不一定和frame-size相等"><a href="#bounds-size不一定和frame-size相等" class="headerlink" title="bounds.size不一定和frame.size相等"></a>bounds.size不一定和frame.size相等</h4><p>大多数情况下bounds.size和frame.size相等，但是如果view发生了transform，比如旋转。frame会发生变化，但bounds不会发生变化。</p>
+<h4 id="bounds的实例"><a href="#bounds的实例" class="headerlink" title="bounds的实例"></a>bounds的实例</h4><p>最常用的scrollview其实就是改变的bounds，之前居然一直没注意。</p>
 
           
         
@@ -509,7 +1447,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/16/nginx配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/使用match证书管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -528,7 +1466,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/16/nginx配置/" itemprop="url">简单nginx配置</a></h1>
+                <a class="post-title-link" href="/2018/12/17/使用match证书管理/" itemprop="url">使用match证书管理</a></h1>
         
 
         <div class="post-meta">
@@ -540,8 +1478,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-16T17:21:21+08:00">
-                2018-10-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-17T15:57:25+08:00">
+                2018-12-17
               </time>
             
 
@@ -580,9 +1518,20 @@
       
         
           
-            <h1 id="简单nginx配置"><a href="#简单nginx配置" class="headerlink" title="简单nginx配置"></a>简单nginx配置</h1><p>简单记录一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen       80;  // Nginx的监听端口</span><br><span class="line">	server_name  localhost;  // 访问Nginx服务器的域名</span><br><span class="line">	</span><br><span class="line">	location / &#123;</span><br><span class="line">		root usr/local/vue/page;  //前端项目入口文件的路径</span><br><span class="line">    try_files $uri $uri/ @router;</span><br><span class="line"> 		index index.html index.htm;  //前端入口文件为index.html</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	error_page 500 502 503 504 /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">    	root html;</span><br><span class="line">  	&#125;</span><br><span class="line">  	location @router &#123;</span><br><span class="line">  		rewrite ^.*$ /index.html last;</span><br><span class="line">  	&#125;</span><br><span class="line">	</span><br><span class="line">  	location /api &#123;  //凡是以/api开头的http请求都会被下面的服务器处理</span><br><span class="line">      proxy_pass  https:  //127.0.0.1:5777;  //被代理的服务器的域名</span><br><span class="line">      proxy_redirect     off;</span><br><span class="line">      proxy_set_header   Host             $host;</span><br><span class="line">      proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">      proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">  	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+            <h1 id="使用match证书管理"><a href="#使用match证书管理" class="headerlink" title="使用match证书管理"></a>使用match证书管理</h1><h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-certs</span><br><span class="line">  -enterprise</span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.cer</span></span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.p12</span></span><br><span class="line"></span><br><span class="line">  -development</span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.cer</span></span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.p12</span></span><br><span class="line"></span><br><span class="line">  -distribution</span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.cer</span></span><br><span class="line">    -<span class="comment">#&#123;cert_id&#125;.p12</span></span><br><span class="line"></span><br><span class="line">-profiles</span><br><span class="line">  -enterprise</span><br><span class="line">    -InHouse<span class="number">_</span><span class="comment">#&#123;bundle_id&#125;.mobileprovision</span></span><br><span class="line"></span><br><span class="line">  -appstore</span><br><span class="line">    -AppStore<span class="number">_</span><span class="comment">#&#123;bundle_id&#125;.mobileprovision</span></span><br><span class="line"></span><br><span class="line">  -adhoc</span><br><span class="line">    -AdHoc<span class="number">_</span><span class="comment">#&#123;bundle_id&#125;.mobileprovision</span></span><br><span class="line"></span><br><span class="line">  -development</span><br><span class="line">    -Development<span class="number">_</span><span class="comment">#&#123;bundle_id&#125;.mobileprovision</span></span><br></pre></td></tr></table></figure>
+<h4 id="自动化配置证书"><a href="#自动化配置证书" class="headerlink" title="自动化配置证书"></a>自动化配置证书</h4><p>cert和profile文件使用OpenSSL加密，需要通过设置环境变量<code>MATCH_PASSWORD</code>来解密，如果没有设置，则match会尝试去钥匙链的密码列表中寻找名称为<code>match_#{:git_url}</code>的钥匙串项，如果仍然没有，则需要用户手动输入。在CI环境中，最好事先设置环境变量<code>MATCH_PASSWORD</code>。</p>
+<h4 id="match获取cert流程"><a href="#match获取cert流程" class="headerlink" title="match获取cert流程"></a>match获取cert流程</h4><p>首先，根据<code>:type</code>指定的类型，如development，则match遍历仓库的<code>/certs/development/</code>目录下的所有文件，将文件名符合<em>.cer格式的最后一个当做签名证书，将文件名符合</em>.p12格式的最后一个当做其对应私钥。<br>如果签名证书和其私钥都存在，则将签名证书的文件名去掉扩展名，剩余部分作为此证书的id。<br>如果签名证书或其私钥不存在，则异常退出。</p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><h4 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h4><ol>
+<li><p>安装fastlane <code>sudo gem install fastlane</code></p>
+</li>
+<li><p>安装证书：在项目路径下 <code>fastlane match &lt;development/adhoc/appstore&gt; --readonly</code></p>
+<p>注：为避免match 重新生成新证书，请添加<code>--readonly</code> </p>
+</li>
+</ol>
+<h4 id="手动生成证书"><a href="#手动生成证书" class="headerlink" title="手动生成证书"></a>手动生成证书</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -nocerts -nodes -out key.pem -in #&#123;export_cert_name&#125;.p12</span><br><span class="line">openssl aes-256-cbc -k #&#123;password&#125; -in key.pem -out #&#123;cert_id&#125;.p12 -a</span><br><span class="line">openssl aes-256-cbc -k #&#123;password&#125; -in #&#123;export_cert_name&#125;.cer -out #&#123;cert_id&#125;.cer -a</span><br></pre></td></tr></table></figure>
+<h4 id="手动解密证书"><a href="#手动解密证书" class="headerlink" title="手动解密证书"></a>手动解密证书</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl aes-256-cbc -k #&#123;password&#125; -in #&#123;need_decrypt_path&#125; -out #&#123;decrypted_file_path&#125; -a -d</span><br></pre></td></tr></table></figure>
+<h4 id="打印证书列表"><a href="#打印证书列表" class="headerlink" title="打印证书列表"></a>打印证书列表</h4><p>创建ruby.rb文件,将以下代码复制进去,替换苹果账号</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'spaceship'</span></span><br><span class="line"></span><br><span class="line">Spaceship.login(<span class="string">'yourappid@xxx.com'</span>)</span><br><span class="line">Spaceship.select_team</span><br><span class="line"></span><br><span class="line">Spaceship.certificate.all.each <span class="keyword">do</span> <span class="params">|cert|</span> </span><br><span class="line">  cert_type = Spaceship::Portal::Certificate::CERTIFICATE_TYPE_IDS[cert.type_display_id].to_s.split(<span class="string">"::"</span>)[-<span class="number">1</span>]</span><br><span class="line">  puts <span class="string">"Cert id: <span class="subst">#&#123;cert.id&#125;</span>, name: <span class="subst">#&#123;cert.name&#125;</span>, expires: <span class="subst">#&#123;cert.expires.strftime(<span class="string">"%Y-%m-%d"</span>)&#125;</span>, type: <span class="subst">#&#123;cert_type&#125;</span>"</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -621,7 +1570,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -665,7 +1614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
