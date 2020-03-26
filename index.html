@@ -260,6 +260,388 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/23/正则表达式/" itemprop="url">正则表达式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-23T16:22:06+08:00">
+                2020-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><blockquote>
+<p>正则表达式（Regular Expression）是计算机科学的一个概念。正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。</p>
+</blockquote>
+<h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><p>正则表达式由一些普通字符和一些元字符（metacharacters）组成。普通字符包括大小写的字母和数字，而元字符则具有特殊的含义</p>
+<p>在最简单的情况下，一个正则表达式看上去就是一个普通的查找串。例如，正则表达式”testing”中没有包含任何元字符，它可以匹配”testing”和”testing123”等字符串，但是不能匹配”Testing”。</p>
+<p>要想真正的用好正则表达式，正确的理解元字符是最重要的事情。下面列出了所有的元字符和对它们的一个简短的描述。</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>转义字符</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字行首。如果设置了RegExp对象的Multiline属性，^也匹配“\n”或“\r”之后的位置。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入行尾。如果设置了RegExp对象的Multiline属性，$也匹配“\n”或“\r”之前的位置。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式任意次。例如，zo<em>能匹配“z”，也能匹配“zo”以及“zoo”。</em>等价于{0,}。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次(大于等于1次）。例如，“zo+”能匹配“zo”以及“zoo”，但不能匹配“z”。+等价于{1,}。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“do”或“does”。?等价于{0,1}。</td>
+</tr>
+<tr>
+<td>{<em>n</em>}</td>
+<td><em>n</em>是一个非负整数。匹配确定的<em>n</em>次。例如，“o{2}”不能匹配“Bob”中的“o”，但是能匹配“food”中的两个o。</td>
+</tr>
+<tr>
+<td>{<em>n</em>,}</td>
+<td><em>n</em>是一个非负整数。至少匹配<em>n</em>次。例如，“o{2,}”不能匹配“Bob”中的“o”，但能匹配“foooood”中的所有o。“o{1,}”等价于“o+”。“o{0,}”则等价于“o*”。</td>
+</tr>
+<tr>
+<td>{<em>n</em>,<em>m</em>}</td>
+<td><em>m</em>和<em>n</em>均为非负整数，其中<em>n</em>&lt;=<em>m</em>。最少匹配<em>n</em>次且最多匹配<em>m</em>次。例如，“o{1,3}”将匹配“fooooood”中的前三个o为一组，后三个o为一组。“o{0,1}”等价于“o?”。请注意在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>当该字符紧跟在任何一个其他限制符（<em>,+,?，{</em>n<em>}，{</em>n<em>,}，{</em>n<em>,</em>m*}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少地匹配所搜索的字符串，而默认的贪婪模式则尽可能多地匹配所搜索的字符串。例如，对于字符串“oooo”，“o+”将尽可能多地匹配“o”，得到结果[“oooo”]，而“o+?”将尽可能少地匹配“o”，得到结果 [‘o’, ‘o’, ‘o’, ‘o’]</td>
+</tr>
+<tr>
+<td>.点</td>
+<td>匹配除“\n”和”\r”之外的任何单个字符。要匹配包括“\n”和”\r”在内的任何字符，请使用像“[\s\S]”的模式。</td>
+</tr>
+<tr>
+<td>x\</td>
+<td>y</td>
+<td>匹配x或y。例如，“z\</td>
+<td>food”能匹配“z”或“food”(此处请谨慎)。“[z\</td>
+<td>f]ood”则匹配“zood”或“food”。</td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td>
+</tr>
+<tr>
+<td>[^xyz]</td>
+<td>负值字符集合。匹配未包含的任意字符。例如，“[^abc]”可以匹配“plain”中的“plin”任一字符。</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>字符范围。匹配指定范围内的任意字符。例如，“[a-z]”可以匹配“a”到“z”范围内的任意小写字母字符。注意:只有连字符在字符组内部时,并且出现在两个字符之间时,才能表示字符的范围; 如果出字符组的开头,则只能表示连字符本身.</td>
+</tr>
+<tr>
+<td>[^a-z]</td>
+<td>负值字符范围。匹配任何不在指定范围内的任意字符。例如，“[^a-z]”可以匹配任何不在“a”到“z”范围内的任意字符。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词的边界，也就是指单词和空格间的位置（即正则表达式的“匹配”有两种概念，一种是匹配字符，一种是匹配位置，这里的\b就是匹配位置的）。例如，“er\b”可以匹配“never”中的“er”，但不能匹配“verb”中的“er”；“\b1_”可以匹配“1_23”中的“1_”，但不能匹配“21_3”中的“1_”。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。“er\B”能匹配“verb”中的“er”，但不能匹配“never”中的“er”。</td>
+</tr>
+<tr>
+<td>\cx</td>
+<td>匹配由x指明的控制字符。例如，\cM匹配一个Control-M或回车符。x的值必须为A-Z或a-z之一。否则，将c视为一个原义的“c”字符。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字字符[0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于[^0-9]。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符。等价于\x0c和\cL。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符。等价于\x0a和\cJ。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符。等价于\x0d和\cM。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何不可见字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何可见字符。等价于[^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符。等价于\x09和\cI。</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符。等价于\x0b和\cK。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配包括下划线的任何单词字符。类似但不等价于“[A-Za-z0-9_]”，这里的”单词”字符使用Unicode字符集。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何非单词字符。等价于“[^A-Za-z0-9_]”。</td>
+</tr>
+<tr>
+<td>\x<em>n</em></td>
+<td>匹配<em>n</em>，其中<em>n</em>为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，“\x41”匹配“A”。“\x041”则等价于“\x04&amp;1”。正则表达式中可以使用ASCII编码。</td>
+</tr>
+<tr>
+<td>*num*</td>
+<td>匹配<em>num</em>，其中<em>num</em>是一个正整数。对所获取的匹配的引用。例如，“(.)\1”匹配两个连续的相同字符。</td>
+</tr>
+<tr>
+<td>*n*</td>
+<td>标识一个八进制转义值或一个向后引用。如果*n<em>之前至少</em>n<em>个获取的子表达式，则</em>n<em>为向后引用。否则，如果</em>n<em>为八进制数字（0-7），则</em>n*为一个八进制转义值。</td>
+</tr>
+<tr>
+<td>*nm*</td>
+<td>标识一个八进制转义值或一个向后引用。如果*nm<em>之前至少有</em>nm<em>个获得子表达式，则</em>nm<em>为向后引用。如果\</em>nm<em>之前至少有</em>n<em>个获取，则</em>n<em>为一个后跟文字</em>m<em>的向后引用。如果前面的条件都不满足，若</em>n<em>和</em>m<em>均为八进制数字（0-7），则\</em>nm<em>将匹配八进制转义值</em>nm*。</td>
+</tr>
+<tr>
+<td>*nml*</td>
+<td>如果<em>n</em>为八进制数字（0-7），且<em>m</em>和<em>l</em>均为八进制数字（0-7），则匹配八进制转义值<em>nml</em>。</td>
+</tr>
+<tr>
+<td>\u<em>n</em></td>
+<td>匹配<em>n</em>，其中<em>n</em>是一个用四个十六进制数字表示的Unicode字符。例如，\u00A9匹配版权符号（&copy;）。</td>
+</tr>
+<tr>
+<td>\p{P}</td>
+<td>小写 p 是 property 的意思，表示 Unicode 属性，用于 Unicode 正表达式的前缀。中括号内的“P”表示Unicode 字符集七个字符属性之一：标点字符。其他六个属性：L：字母；M：标记符号（一般不会单独出现）；Z：分隔符（比如空格、换行等）；S：符号（比如数学符号、货币符号等）；N：数字（比如阿拉伯数字、罗马数字等）；C：其他字符。*<em>注：此语法部分语言不支持，例：javascript。</em></td>
+</tr>
+<tr>
+<td>\&lt;></td>
+<td>匹配词（word）的开始（\&lt;）和结束（>）。例如正则表达式\&lt;the>能够匹配字符串”for the wise”中的”the”，但是不能匹配字符串”otherwise”中的”the”。注意：这个元字符不是所有的软件都支持的。</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>将( 和 ) 之间的表达式定义为“组”（group），并且将匹配这个表达式的字符保存到一个临时区域（一个正则表达式中最多可以保存9个），它们可以用 \1 到\9 的符号来引用。</td>
+</tr>
+<tr>
+<td>\</td>
+<td></td>
+<td>将两个匹配条件进行逻辑“或”（or）运算。例如正则表达式(him\</td>
+<td>her) 匹配”it belongs to him”和”it belongs to her”，但是不能匹配”it belongs to them.”。注意：这个元字符不是所有的软件都支持的。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>在正则表达式中，如果直接给出字符，就是精确匹配。用<code>\d</code>可以匹配一个数字，<code>\w</code>可以匹配一个字母或数字，所以：</p>
+<ul>
+<li><code>&#39;00\d&#39;</code>可以匹配<code>&#39;007&#39;</code>，但无法匹配<code>&#39;00A&#39;</code>；</li>
+<li><code>&#39;\d\d\d&#39;</code>可以匹配<code>&#39;010&#39;</code>；</li>
+<li><code>&#39;\w\w&#39;</code>可以匹配<code>&#39;js&#39;</code>；</li>
+</ul>
+<p><code>.</code>可以匹配任意字符，所以：</p>
+<ul>
+<li><code>&#39;js.&#39;</code>可以匹配<code>&#39;jsp&#39;</code>、<code>&#39;jss&#39;</code>、<code>&#39;js!&#39;</code>等等。</li>
+</ul>
+<p>要匹配变长的字符，在正则表达式中，用<code>*</code>表示任意个字符（包括0个），用<code>+</code>表示至少一个字符，用<code>?</code>表示0个或1个字符，用<code>{n}</code>表示n个字符，用<code>{n,m}</code>表示n-m个字符：</p>
+<p>来看一个复杂的例子：<code>\d{3}\s+\d{3,8}</code>。</p>
+<p>我们来从左到右解读一下：</p>
+<ol>
+<li><code>\d{3}</code>表示匹配3个数字，例如<code>&#39;010&#39;</code>；</li>
+<li><code>\s</code>可以匹配一个空格（也包括Tab等空白符），所以<code>\s+</code>表示至少有一个空格，例如匹配<code>&#39; &#39;</code>，<code>&#39;\t\t&#39;</code>等；</li>
+<li><code>\d{3,8}</code>表示3-8个数字，例如<code>&#39;1234567&#39;</code>。</li>
+</ol>
+<p>综合起来，上面的正则表达式可以匹配以任意个空格隔开的带区号的电话号码。</p>
+<p>如果要匹配<code>&#39;010-12345&#39;</code>这样的号码呢？由于<code>&#39;-&#39;</code>是特殊字符，在正则表达式中，要用<code>&#39;\&#39;</code>转义，所以，上面的正则是<code>\d{3}\-\d{3,8}</code>。</p>
+<p>但是，仍然无法匹配<code>&#39;010 - 12345&#39;</code>，因为带有空格。所以我们需要更复杂的匹配方式。</p>
+<h4 id="更复杂的例子"><a href="#更复杂的例子" class="headerlink" title="更复杂的例子"></a>更复杂的例子</h4><p>要做更精确地匹配，可以用<code>[]</code>表示范围，比如：</p>
+<ul>
+<li><code>[0-9a-zA-Z\_]</code>可以匹配一个数字、字母或者下划线；</li>
+<li><code>[0-9a-zA-Z\_]+</code>可以匹配至少由一个数字、字母或者下划线组成的字符串，比如<code>&#39;a100&#39;</code>，<code>&#39;0_Z&#39;</code>，<code>&#39;js2015&#39;</code>等等；</li>
+<li><code>[a-zA-Z\_\$][0-9a-zA-Z\_\$]*</code>可以匹配由字母或下划线、\$开头，后接任意个由一个数字、字母或者下划线、\$组成的字符串，也就是JavaScript允许的变量名；</li>
+<li><code>[a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}</code>更精确地限制了变量的长度是1-20个字符（前面1个字符+后面最多19个字符）。</li>
+</ul>
+<p><code>A|B</code>可以匹配A或B，所以<code>(J|j)ava(S|s)cript</code>可以匹配<code>&#39;JavaScript&#39;</code>、<code>&#39;Javascript&#39;</code>、<code>&#39;javaScript&#39;</code>或者<code>&#39;javascript&#39;</code>。</p>
+<p><code>^</code>表示行的开头，<code>^\d</code>表示必须以数字开头。</p>
+<p><code>$</code>表示行的结束，<code>\d$</code>表示必须以数字结束。</p>
+<p>你可能注意到了，<code>js</code>也可以匹配<code>&#39;jsp&#39;</code>，但是加上<code>^js$</code>就变成了整行匹配，就只能匹配<code>&#39;js&#39;</code>了。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>用js举例</p>
+<ol>
+<li><p>使用字面量<code>/正则表达式/</code></p>
+<p><code>var regex = /abc/</code></p>
+</li>
+<li><p>使用<code>new RegExp(&#39;正则表达式&#39;)</code></p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re1 = <span class="regexp">/ABC\-001/</span>;</span><br><span class="line"><span class="keyword">var</span> re2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'ABC\\-001'</span>);</span><br><span class="line"></span><br><span class="line">re1; <span class="comment">// /ABC\-001/</span></span><br><span class="line">re2; <span class="comment">// /ABC\-001/</span></span><br></pre></td></tr></table></figure>
+<p>注意，如果使用第二种写法，因为字符串的转义问题，字符串的两个<code>\\</code>实际上是一个<code>\</code>。</p>
+<p>###判断正则表达式是否匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var re = /^\d&#123;3&#125;\-\d&#123;3,8&#125;$/;</span><br><span class="line">re.test(&apos;010-12345&apos;); // true</span><br><span class="line">re.test(&apos;010-1234x&apos;); // false</span><br><span class="line">re.test(&apos;010 12345&apos;); // false</span><br></pre></td></tr></table></figure>
+<p>RegExp对象的<code>test()</code>方法用于测试给定的字符串是否符合条件。</p>
+<h3 id="切分字符串"><a href="#切分字符串" class="headerlink" title="切分字符串"></a>切分字符串</h3><p>用正则表达式切分字符串比用固定的字符更灵活，正常的切分代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;a b   c&apos;.split(&apos; &apos;); // [&apos;a&apos;, &apos;b&apos;, &apos;&apos;, &apos;&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure>
+<p>正则表达式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 切割连续空格分隔</span></span><br><span class="line"><span class="string">'a b   c'</span>.split(<span class="regexp">/\s+/</span>); <span class="comment">// ['a', 'b', 'c']</span></span><br><span class="line"><span class="comment">// 可分隔空格和,</span></span><br><span class="line"><span class="string">'a,b, c  d'</span>.split(<span class="regexp">/[\s\,]+/</span>); <span class="comment">// ['a', 'b', 'c', 'd']</span></span><br><span class="line"><span class="comment">// 分隔空格 , ;</span></span><br><span class="line"><span class="string">'a,b;; c  d'</span>.split(<span class="regexp">/[\s\,\;]+/</span>); <span class="comment">// ['a', 'b', 'c', 'd']</span></span><br></pre></td></tr></table></figure>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。用<code>()</code>表示的就是要提取的分组（Group）。比如：</p>
+<p><code>^(\d{3})-(\d{3,8})$</code>分别定义了两个组，可以直接从匹配的字符串中提取出区号和本地号码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$/</span>;</span><br><span class="line">re.exec(<span class="string">'010-12345'</span>); <span class="comment">// ['010-12345', '010', '12345']</span></span><br><span class="line">re.exec(<span class="string">'010 12345'</span>); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<p>如果正则表达式中定义了组，就可以在<code>RegExp</code>对象上用<code>exec()</code>方法提取出子串来。</p>
+<p><code>exec()</code>方法在匹配成功后，会返回一个<code>Array</code>，第一个元素是正则表达式匹配到的整个字符串，后面的字符串表示匹配成功的子串。</p>
+<p><code>exec()</code>方法在匹配失败时返回<code>null</code>。</p>
+<p><strong>提取子串的例子：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$/</span>;</span><br><span class="line">re.exec(<span class="string">'19:05:30'</span>); <span class="comment">// ['19:05:30', '19', '05', '30']</span></span><br></pre></td></tr></table></figure>
+<p>这个正则表达式可以直接识别合法的时间。但是有些时候，用正则表达式也无法做到完全验证，比如识别日期：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/^(0[1-9]|1[0-2]|[0-9])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]|[0-9])$/</span>;</span><br></pre></td></tr></table></figure>
+<p>对于<code>&#39;2-30&#39;</code>，<code>&#39;4-31&#39;</code>这样的非法日期，用正则还是识别不了，或者说写出来非常困难，这时就需要程序配合识别了。</p>
+<h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h3><p>需要特别指出的是，正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。举例如下，匹配出数字后面的<code>0</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/^(\d+)(0*)$/</span>;</span><br><span class="line">re.exec(<span class="string">'102300'</span>); <span class="comment">// ['102300', '102300', '']</span></span><br></pre></td></tr></table></figure>
+<p>由于<code>\d+</code>采用贪婪匹配，直接把后面的<code>0</code>全部匹配了，结果<code>0*</code>只能匹配空字符串了。</p>
+<p>必须让<code>\d+</code>采用非贪婪匹配（也就是尽可能少匹配），才能把后面的<code>0</code>匹配出来，加个<code>?</code>就可以让<code>\d+</code>采用非贪婪匹配：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/^(\d+?)(0*)$/</span>;</span><br><span class="line">re.exec(<span class="string">'102300'</span>); <span class="comment">// ['102300', '1023', '00']</span></span><br></pre></td></tr></table></figure>
+<h3 id="全局搜索"><a href="#全局搜索" class="headerlink" title="全局搜索"></a>全局搜索</h3><p>JavaScript的正则表达式还有几个特殊的标志，最常用的是<code>g</code>，表示全局匹配：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> r1 = <span class="regexp">/test/g</span>;</span><br><span class="line"><span class="comment">// 等价于:</span></span><br><span class="line"><span class="keyword">var</span> r2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'test'</span>, <span class="string">'g'</span>);</span><br></pre></td></tr></table></figure>
+<p>全局匹配可以多次执行<code>exec()</code>方法来搜索一个匹配的字符串。当我们指定<code>g</code>标志后，每次运行<code>exec()</code>，正则表达式本身会更新<code>lastIndex</code>属性，表示上次匹配到的最后索引：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'JavaScript, VBScript, JScript and ECMAScript'</span>;</span><br><span class="line"><span class="keyword">var</span> re=<span class="regexp">/[a-zA-Z]+Script/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用全局匹配:</span></span><br><span class="line">re.exec(s); <span class="comment">// ['JavaScript']</span></span><br><span class="line">re.lastIndex; <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">re.exec(s); <span class="comment">// ['VBScript']</span></span><br><span class="line">re.lastIndex; <span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">re.exec(s); <span class="comment">// ['JScript']</span></span><br><span class="line">re.lastIndex; <span class="comment">// 29</span></span><br><span class="line"></span><br><span class="line">re.exec(s); <span class="comment">// ['ECMAScript']</span></span><br><span class="line">re.lastIndex; <span class="comment">// 44</span></span><br><span class="line"></span><br><span class="line">re.exec(s); <span class="comment">// null，直到结束仍没有匹配到</span></span><br></pre></td></tr></table></figure>
+<p>全局匹配类似搜索，因此不能使用<code>/^...$/</code>，那样只会最多匹配一次。</p>
+<p>正则表达式还可以指定<code>i</code>标志，表示忽略大小写，<code>m</code>标志，表示执行多行匹配。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>js中replace替换对应的字符串 <strong>stringObject.replace(regexp/substr,replacement)</strong></p>
+<p><em>replacement</em> 可以是字符串，也可以是函数。</p>
+<p><strong>当需要替换的字符串是正则表达式的时候</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'10.00,22,20.11'</span>;</span><br><span class="line">str = str.replace(<span class="regexp">/\d+(\.\d+)?/</span>,<span class="string">'$10.00'</span>); </span><br><span class="line"><span class="comment">//  /\d+(\.\d+)?/  这个正则表达式是表示带小数的数字，例如：10.00</span></span><br><span class="line"><span class="comment">//中文货币符号替换成美元货币符号</span></span><br><span class="line"><span class="built_in">console</span>.log(str);  <span class="comment">//  .000.00,22,20.11</span></span><br></pre></td></tr></table></figure>
+<p>这个时候发现，replace把10.00替换成$10.00的时候，却变成了 .000.00</p>
+<p>原因是因为 $1 是切割正则表达式的第一个括号 (.\d+)，所以就分成了两步</p>
+<p>第一步：(/.\d+/) = ‘$1’   ===&gt;   $1 = ‘.00’</p>
+<p>第二步：’$10.00’ = ‘$1’ + ‘0.00’  ===&gt; str = .000.00</p>
+<p>解决这个问题就可以用下面这个当replacement是函数的方法，返回 function 的时候就没有 $1 对正则表达式的括号进行切割了。</p>
+<p><strong>3、当replacement是函数的时候</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'10.00,22,20.11'</span>;</span><br><span class="line">str = str.replace(<span class="regexp">/\d+(\.\d+)?/</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'$10.00'</span>;</span><br><span class="line">&#125;); </span><br><span class="line"><span class="built_in">console</span>.log(str);  <span class="comment">//  $10.00,22,20.11</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/编译C++文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -279,7 +661,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/16/编译C++文件/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/12/16/编译C++文件/" itemprop="url">编译C++文件</a></h1>
         
 
         <div class="post-meta">
@@ -384,7 +766,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/堆和栈/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/Shell命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -403,7 +785,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/12/堆和栈/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/10/22/Shell命令/" itemprop="url">Shell命令</a></h1>
         
 
         <div class="post-meta">
@@ -415,8 +797,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-12T18:37:45+08:00">
-                2019-12-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-22T11:37:40+08:00">
+                2019-10-22
               </time>
             
 
@@ -455,12 +837,20 @@
       
         
           
-            <h1 id="堆和栈"><a href="#堆和栈" class="headerlink" title="堆和栈"></a>堆和栈</h1><p>Heap（堆）:  由用户主动请求划分出来的内存区域，地址从低位到高位增长。 特点：不会自动消失，必须手动释放，或有垃圾回收机制来回收。</p>
-<ul>
-<li>alloc 申请的 ，需要release释放</li>
-<li>malloc 申请的， 需要free释放 </li>
-</ul>
-<p>Stack（栈）：除了Heap以外，其他内存占用。是由函数运行临时占用的内存区域。<strong>主要是局部变量</strong></p>
+            <h1 id="Shell命令"><a href="#Shell命令" class="headerlink" title="Shell命令"></a>Shell命令</h1><h3 id="常用Shell命令"><a href="#常用Shell命令" class="headerlink" title="常用Shell命令"></a>常用Shell命令</h3><p>通过 <code>history</code> 命令你可以找到最近用过的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history | grep "git clone"</span><br></pre></td></tr></table></figure>
+<p>文件内容追加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat file1.txt &gt;&gt; file2.txt</span><br></pre></td></tr></table></figure>
+<p>更改权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 path</span><br><span class="line">chmod +x /usr/bin/Clutch // 添加可执行权限</span><br></pre></td></tr></table></figure>
+<h3 id="SSH相关"><a href="#SSH相关" class="headerlink" title="SSH相关"></a>SSH相关</h3><p>删除服务器公钥 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R ip</span><br></pre></td></tr></table></figure>
+<p>生成ssh秘钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>服务器授权文件追加当前公钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id user@服务器ip</span><br></pre></td></tr></table></figure>
+<p>配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim .bash_profile</span><br><span class="line">source .bash_profile   //立即生效</span><br></pre></td></tr></table></figure>
 
           
         
@@ -509,7 +899,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/Flutter参考资料/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/npm install package-lock.json会改变/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ysir">
@@ -528,7 +918,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/28/Flutter参考资料/" itemprop="url">Flutter参考资料</a></h1>
+                <a class="post-title-link" href="/2019/08/05/npm install package-lock.json会改变/" itemprop="url">npm install package-lock.json会改变</a></h1>
         
 
         <div class="post-meta">
@@ -540,8 +930,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T16:03:55+08:00">
-                2019-02-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-05T18:48:55+08:00">
+                2019-08-05
               </time>
             
 
@@ -580,7 +970,745 @@
       
         
           
-            <h2 id="资料整理"><a href="#资料整理" class="headerlink" title="资料整理"></a>资料整理</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+            <h1 id="npm-install-package-lock-json会改变"><a href="#npm-install-package-lock-json会改变" class="headerlink" title="npm install package-lock.json会改变"></a>npm install package-lock.json会改变</h1><p>问题：npm install 后 package-lock会改变，项目编译报错。。</p>
+<p>原因:package-lock.json里是会保存项目所有的依赖(包括依赖的依赖)的版本，下载地址等。 因为项目package.json中对依赖版本不同的要求，会有不同写法，比如限定最低版本，限定版本范围等等。所以在不同时间运行npm i,可能期间有些依赖会出新的版本，造成package-lock.json变动。 就算自己的项目直接依赖固定了版本号，但是你的依赖的依赖没法固定，也会出现这种现象。</p>
+<p>解决方法: nmp 5.8还是5.9添加了新命令，npm ci用于完全从package-lock.json来快速安装依赖，不会产生这个问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/正确的布局位置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/02/正确的布局位置/" itemprop="url">正确的布局位置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T18:14:27+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正确的布局位置"><a href="#正确的布局位置" class="headerlink" title="正确的布局位置"></a>正确的布局位置</h1><p><code>UIView</code> 的子类 要保证在 <code>layoutSubviews</code> 方法内进行布局（根据 self 宽高而不是屏幕或 window 尺寸），这本来也是一个标准做法。对于 <code>ViewController</code>，系统提供了 <code>viewWillLayoutSubviews</code> 方法，类似于 <code>layoutSubviews</code>方法，你可以在这里进行 <code>vc.view</code> 及其子 <code>view</code> 的布局。在转屏、分屏后这些方法都会被触发。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/Command Not Found/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/02/Command Not Found/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-02T18:02:03+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#Command Not Found</p>
+<p>使用终端命令的时候常会出现<code>Command Not Found</code>这个错误，我们今天聊一聊这个错误出现的基本原因，出现这个问题一般因为下面4种原因；</p>
+<ul>
+<li>输入命令时语法错误，命令行有语法规则，必须按语法规则写；</li>
+<li>命令并没有安装，有时候安装的时候忽略了错误；</li>
+<li>命令被删除或破坏了；</li>
+<li>用户的 <code>$PATH</code> 不正确，大部分原因都是这个导致的；</li>
+</ul>
+<p>出现前三种错误都比较好解决，第四中错误比较常见，有时候明明安装完成了，却还会报这个错误。命令行程序之所以可以执行是因为它本身是一个可执行程序或者是一个脚本。当在终端中输入命令的时候，操作系统会找对应的可执行文件并执行。操作系统会从环境变量<code>$PATH</code>中依次查找可执行文件，直到找到，如果找不到将报 <code>Command Not Found</code> 这个错误。</p>
+<p>查看我电脑的环境变量 <code>$PATH</code> 中包含了（每个路径通过冒号分割）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ echo $PATH</span><br><span class="line">/opt/MonkeyDev/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</span><br></pre></td></tr></table></figure>
+<p>如果报 <code>Command Not Found</code> 这个错误，首先通过<code>echo $PATH</code>查看环境变量中是否已经存在了可执行文件的路径。如果没有打开<code>.bash_profile</code>把可执行文件地绝对路径写进去即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜ vi $HOME/.bash_profile</span><br><span class="line">export PATH=&quot;$HOME/Library/Android/flutter/bin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">// 想让刚配置的 PATH 生效，需要刷新终端</span><br><span class="line">➜  source $HOME/.bash_profile</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/Mac OS 点击dock应用图标重新弹出主窗口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/31/Mac OS 点击dock应用图标重新弹出主窗口/" itemprop="url">Mac OS 点击dock应用图标重新弹出主窗口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-31T14:31:03+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#MacOS 点击dock应用图标重新弹出主窗口</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">applicationShouldHandleReopen</span><span class="params">(<span class="number">_</span> sender: NSApplication, hasVisibleWindows flag: Bool)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="type">NSApp</span>.activate(ignoringOtherApps: <span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">self</span>.window.makeKeyAndOrderFront(<span class="keyword">self</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/MacOS CGImage 保存为图片/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/19/MacOS CGImage 保存为图片/" itemprop="url">MacOS CGImage 保存为图片</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-19T17:21:40+08:00">
+                2019-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="MacOS-CGImage-保存为图片"><a href="#MacOS-CGImage-保存为图片" class="headerlink" title="MacOS CGImage 保存为图片"></a>MacOS CGImage 保存为图片</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@discardableResult</span> <span class="function"><span class="keyword">func</span> <span class="title">writeCGImage</span><span class="params">(<span class="number">_</span> image: CGImage, to destinationURL: URL)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> destination = <span class="type">CGImageDestinationCreateWithURL</span>(destinationURL <span class="keyword">as</span> <span class="type">CFURL</span>, kUTTypePNG, <span class="number">1</span>, <span class="literal">nil</span>) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">    <span class="type">CGImageDestinationAddImage</span>(destination, image, <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="type">CGImageDestinationFinalize</span>(destination)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/iOS 链式编程写法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/19/iOS 链式编程写法/" itemprop="url">iOS 链式编程写法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T17:40:45+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="iOS-链式编程写法"><a href="#iOS-链式编程写法" class="headerlink" title="iOS 链式编程写法"></a>iOS 链式编程写法</h1><h3 id="1-用’-’实现连续调用"><a href="#1-用’-’实现连续调用" class="headerlink" title="1.用’[]’实现连续调用"></a>1.用’[]’实现连续调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2;</span><br><span class="line">- (Person *)sleep2;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *)eat2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">- (Person *)sleep2</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">[[person eat2] sleep2];</span><br><span class="line">[[person sleep2] eat2];</span><br></pre></td></tr></table></figure>
+<h3 id="2-用block实现链式"><a href="#2-用block实现链式" class="headerlink" title="2.用block实现链式"></a>2.用block实现链式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.h:</span><br><span class="line"></span><br><span class="line">- (Person * (^)(NSString *foodName))eat5;</span><br><span class="line">- (Person * (^)(NSInteger hour))sleep5;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Person.m:</span><br><span class="line"></span><br><span class="line">- (Person *(^)(NSString *))eat5</span><br><span class="line">&#123;</span><br><span class="line">    Person * (^eat5Block)() = ^(NSString *foodName) &#123;</span><br><span class="line">        NSLog(@&quot;吃: %@&quot;,foodName);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">    return eat5Block;</span><br><span class="line">&#125;</span><br><span class="line">//上下两种写法一样</span><br><span class="line">- (Person *(^)(NSInteger))sleep5</span><br><span class="line">&#123;</span><br><span class="line">    return ^(NSInteger hour) &#123;</span><br><span class="line">        NSLog(@&quot;睡了%ld小时&quot;,(long)hour);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewController.m:</span><br><span class="line"></span><br><span class="line">person.eat5(@&quot;蛋糕&quot;).sleep5(8);</span><br><span class="line">person.sleep5(8).eat5(@&quot;面包&quot;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/Flutter 参考资料/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ysir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YSir's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/05/Flutter 参考资料/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T10:53:19+08:00">
+                2019-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Flutter"><a href="#Flutter" class="headerlink" title="Flutter"></a>Flutter</h1><h2 id="资料整理"><a href="#资料整理" class="headerlink" title="资料整理"></a>资料整理</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
 <li><p>Flutter官方文档 <a href="https://flutter.io/docs/get-started/install" target="_blank" rel="noopener">官方文档</a> </p>
 </li>
 <li><p>国内翻译版本 <a href="https://flutterchina.club/get-started/install/" target="_blank" rel="noopener">Flutter中文网</a></p>
@@ -607,255 +1735,9 @@
 <li><p>Packages <a href="https://pub.dartlang.org/" target="_blank" rel="noopener">https://pub.dartlang.org/</a></p>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-28T10:20:27+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/29/常用shell 命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ysir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YSir's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/29/常用shell 命令/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-29T11:17:02+08:00">
-                2018-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="常用shell-命令"><a href="#常用shell-命令" class="headerlink" title="常用shell 命令"></a>常用shell 命令</h1><p>通过 <code>history</code> 命令你可以找到最近用过的命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history | grep "git clone"</span><br></pre></td></tr></table></figure>
+<h3 id="常用Packages"><a href="#常用Packages" class="headerlink" title="常用Packages"></a>常用Packages</h3><ul>
+<li>dio(网络请求) <a href="https://github.com/flutterchina/dio" target="_blank" rel="noopener">https://github.com/flutterchina/dio</a></li>
+</ul>
 
           
         
@@ -894,6 +1776,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -935,7 +1821,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -943,6 +1829,15 @@
 
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
           
 
         </nav>
